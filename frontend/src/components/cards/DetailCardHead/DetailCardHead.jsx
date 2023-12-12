@@ -1,4 +1,4 @@
-import { Heading } from "../";
+import { Heading } from "..";
 
 export const DetailCardHead = ({image, location, address}) => {
     return ( 

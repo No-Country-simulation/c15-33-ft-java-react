@@ -1,4 +1,4 @@
-import { DetailCardCategory } from "../";
+import { DetailCardCategory } from "..";
 
 export const DetailCardInfo = ({
     label,

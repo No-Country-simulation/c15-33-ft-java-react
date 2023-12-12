@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Container } from "../../shared";
-import { DetailCardHead, DetailCardInfo, DetailCardReservation } from "../";
+import { DetailCardHead, DetailCardInfo, DetailCardReservation } from "..";
 
 export const DetailContainerCard = () => {
   const id = useParams();

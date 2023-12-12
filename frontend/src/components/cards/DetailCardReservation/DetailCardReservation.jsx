@@ -1,4 +1,4 @@
-import { DetailCardButton } from "../";
+import { DetailCardButton } from "..";
 
 export const DetailCardReservation = ({totalPrice, price}) => {
     return ( 
