@@ -22,18 +22,8 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    networks:
-      - airclone_net
-
-  airclone_frontend:
-    depends_on:
-      - airclone_backend
-    container_name: airclone_frontend
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
     ports:
-      - "5173:5173"
+      - "8080:8080"
     networks:
       - airclone_net
 
