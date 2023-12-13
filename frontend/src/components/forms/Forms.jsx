@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import React from 'react';
 import {
     Button,
     Dialog,
     Card,
-    CardHeader,
     CardBody,
     CardFooter,
     Typography,
@@ -16,13 +14,18 @@ import {
 import { login, register } from "../../services/login"
 
 import passwordIcon from '../../assets/password_icon.svg'
+import { CountriesSelect } from '../countries/CountryList'
 
 const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
 
     const switchRef = useRef()
     const [registerButtonPressed, setRegisterButtonPressed] = useState(false)
+
+    const [countryValue, setCountryValue] = useState('')
     
     const [dataMissing, setDataMissing] = useState(false)
+    const [invalidEmail, setInvalidEmail] = useState(false)
+    const [invalidPassword, setInvalidPassword] = useState(false)
     const [showPassword, setShowPassword] = useState(true);
     const handleShowPassword = () => setShowPassword((cur) => !cur);
     
@@ -39,7 +42,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
     const initialInputArray = (() => {
         const initialState = {};
         for (const key in initialUserData) {
-            initialState[key] = false;
+            initialState[key] = false; 
         }
         return initialState;
     })();
@@ -59,8 +62,52 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
             ...inputArray,
             [name]: value.trim() === '',
         });
+        
+        if(!dataMissing){
+            return
+        }
 
+        for (const key in userData) {
+            if (userData[key]==='' && key!=="role") {
+                setDataMissing(true)
+                return
+            } else{
+                setDataMissing(false)
+            }
+        }
     };
+
+
+    useEffect(() => {
+        
+        
+        setUserData({
+            ...userData,
+            ['country'] : countryValue
+        })
+
+        setInputArray({
+            ...inputArray,
+            ['country'] : countryValue === ''
+        })
+
+        if(!dataMissing){
+            return
+        }
+
+        for (const key in userData) {
+            if (userData[key]==='' && key!=="role") {
+                setDataMissing(true)
+                return
+            } else{
+                setDataMissing(false)
+            }
+        }
+
+
+
+    }, [countryValue])
+
 
 
     const handleLogInButton = (userData) => {
@@ -68,41 +115,62 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
             sendLogin(userData)
             handleOpenLogin()
             resetData()
-            console.log("Bienvenido " + userData.username)
         } else{
             showEmptyInput()
             setDataMissing(true)
         }
     }
 
-    const handleRegisterButton = (newUserData) => {
 
-        
+    const handleRegisterButton = () => {
 
-        for (const key in newUserData) {
-            if(newUserData[key]==='' && key!=="role"){
+
+
+        if (!validateEmailFormat(userData.username)) {
+            setInputArray(prevState => ({
+                ...prevState,
+                username: true,
+            }));
+            setInvalidEmail(true);
+        } else {
+            setInvalidEmail(false);
+        }
+
+        if(!validatePasswordFormat(userData.password)){
+            setInputArray(prevState => ({
+                ...prevState,
+                password: true,
+            }));
+            setInvalidPassword(true);
+        } else{
+            setInvalidPassword(false);
+        }
+
+        for (const key in userData) {
+            if(userData[key]==='' && key!=="role"){
                 showEmptyInput()
                 setDataMissing(true)
                 return
             }
         }
-
+        
         setRegisterButtonPressed(true)
         setUserData(prevData => ({
           ...prevData,
           role: switchRef.current.checked ? 'OWNER' : 'USER',
         }));
-        
+
+
     }
 
     useEffect(() => {
-        if (registerButtonPressed && !dataMissing) {
+        if (registerButtonPressed && !dataMissing && !invalidEmail && !invalidPassword) {
       
             sendRegister(userData);
             handleOpenSignUp();
             resetData();
-            setRegisterButtonPressed(false)
         }
+        setRegisterButtonPressed(false)
     }), [registerButtonPressed]
 
 
@@ -111,6 +179,8 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
         setInputArray(initialInputArray)
         setUserData(initialUserData)
         setDataMissing(false)
+        setInvalidEmail(false)
+        setInvalidPassword(false)
     }
 
     const showEmptyInput = () => {
@@ -123,9 +193,11 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                 [property]: true,
               }));
             }
+            
         });
             
     }
+
 
     useEffect(() => {
     
@@ -146,6 +218,29 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
         
     }, [openLogin, openSignUp]);
 
+
+    const validatePasswordFormat = (password) => {
+        
+        if (password.length < 8) {
+            return false;
+        }
+
+        if (!/[A-Z]/.test(password)) {
+            return false;
+        }
+
+        if (!/\d/.test(password)) {
+            return false;
+        }
+
+
+        return true;
+    }
+
+    const validateEmailFormat = (email) => {
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regexEmail.test(email);
+    }
     
 
 
@@ -153,11 +248,12 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
         const { username, password } = userData;
         const newData = {username, password}
         login(newData)
+        console.log("Data enviada al back:", userData)
     }
 
     const sendRegister = (userData) => {
         register(userData)
-
+        console.log("Data enviada al back:", userData)
     }
 
 
@@ -248,16 +344,27 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                 </Typography>
                 <div className="h-2">
                     <Typography className="" variant="small" color="red">
-                    {dataMissing ? "* Completar todos los campos" : ""}
+                    {dataMissing ? "Existen campos incompletos" : ""}
                     </Typography>
                 </div>
-                <Typography className="-mb-2" variant="h6">
-                Tu mail
-                </Typography>
+                <div className='flex gap-2 items-baseline'>
+                    <Typography className="-mb-2" variant="h6">
+                    Tu mail
+                    </Typography>
+                    <Typography className="" variant="small" color="red">
+                    {invalidEmail ? "* Formato de mail inválido (ejemplo@ejemplo.com)" : ""}
+                    </Typography>
+                </div>
                 <Input error={inputArray.username} name="username" color="indigo" label="Mail" size="lg" onChange={handleInputChange}/>
-                <Typography className="-mb-2" variant="h6">
-                Tu contraseña
-                </Typography>
+                <div className='flex gap-2 items-baseline'>
+                    <Typography className="-mb-2" variant="h6">
+                    Tu contraseña
+                    </Typography>
+                    <Typography className="" variant="small" color="red">
+                    {invalidPassword ? "* Mín. 8 caracteres, 1 mayúscula y 1 número" : ""}
+                    </Typography>
+
+                </div>
                 <Input error={inputArray.password} name="password" type={showPassword ? "password" : ""} color="indigo" label="Contraseña" size="lg" icon={<img className="password-icon" src={passwordIcon}/>} onChange={handleInputChange}/>
                 <Typography className="-mb-2" variant="h6">
                 Apellido/s
@@ -270,13 +377,13 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                 <Typography className="-mb-2" variant="h6">
                 País
                 </Typography>
-                <Input error={inputArray.country} name="country" color="indigo" label="País" size="lg" onChange={handleInputChange}/>
+                <CountriesSelect newError={inputArray.country} name="country" newValue={countryValue} setCountryValue={setCountryValue}/> 
                 <div className='-mb-3'>
                     <Switch label="Soy propietario" inputRef={switchRef}/>
                 </div>
             </CardBody>
             <CardFooter className="pt-0">
-                <Button variant="gradient" onClick={() => {handleRegisterButton(userData)}} fullWidth>
+                <Button variant="gradient" onClick={handleRegisterButton} fullWidth>
                 Registrarse
                 </Button>
                 <Typography variant="small" className="mt-4 flex justify-center">
