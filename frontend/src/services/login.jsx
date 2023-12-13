@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:8080/auth';
+const apiUrl = 'http://airclone_backend:8080/auth';
 
 export async function login(userData) {
     try {
