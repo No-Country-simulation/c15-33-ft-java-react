@@ -112,7 +112,86 @@
 </div>
 
 <br>
+<br>
 
+<h2> 🏘 API de Propiedades 🏩 </h2>
+
+☑ INFO: <br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Esta API de propiedades desarrollada en Spring Boot proporciona endpoints para la gestión <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;de propiedades inmobiliarias, permitiendo operaciones CRUD (Crear, Leer, Actualizar, Eliminar).  <br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Está diseñada para interactuar con una base de datos MySQL para almacenar la información de las propiedades. <br> 
+
+<h3>🔸 Endpoints 🔸</h3>
+
+✅ Obtener una propiedad por ID <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Recupera una propiedad específica según su ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: GET<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/property/{id}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parámetros de solicitud:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- id: ID de la propiedad a recuperar.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK junto con los detalles de la propiedad en formato PropertyResponse.<br>
+
+✅ Obtener todas las propiedades <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Obtiene todas las propiedades almacenadas.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: GET<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/property<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK junto con una lista de todas las propiedades<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;en formato List<PropertyResponse>.<br>
+
+✅ Registrar una nueva propiedad <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Registra una nueva propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: POST<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/property<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parámetros de solicitud:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- title: Título de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- category: Categoría de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- subCategory: Subcategoría de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- description: Descripción de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- value: Valor de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- active: Estado de activación de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- images: Lista de imágenes de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- country: País de la ubicación de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- city: Ciudad de la ubicación de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- bathroom: Número de baños.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- bed: Número de camas.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- bedroom: Número de habitaciones.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- services: Lista de servicios disponibles.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK si se registra correctamente.<br>
+
+✅ Actualizar una propiedad existente <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Actualiza una propiedad existente según los detalles proporcionados en el cuerpo de la solicitud.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: PUT<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/property<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parámetros de solicitud:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Cuerpo de la solicitud con los detalles actualizados de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK si se actualiza correctamente.<br>
+
+✅ Eliminar una propiedad <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Elimina una propiedad según el cuerpo de la solicitud.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: DELETE<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/property<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parámetros de solicitud:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Cuerpo de la solicitud con el ID de la propiedad a eliminar.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK si se elimina correctamente.<br>
+
+<h3>🔸 Funcionalidad y Proceso de Guardado 🔸</h3>
+
+✅ - Registro y Gestión de Propiedades: La API permite el registro detallado de propiedades con toda su información.<br>
+
+✅ - Filtrado por Categoría: Es posible filtrar propiedades por categorías específicas. <br>
+
+✅ - Proporciona funcionalidades completas de Crear, Leer, Actualizar y Eliminar propiedades en la base de datos.<br>
+
+✅ - El proceso de guardado de una propiedad implica la validación del token JWT proporcionado <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;para asegurar la autorización del usuario, la asociación de imágenes con la propiedad y<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;la gestión de la información detallada para almacenarla en la base de datos MySQL.<br>
+
+<br>
 
 <h2> 🔐 Spring Security Integrado - Flujo de Trabajo 🔑 </h2>
 
@@ -212,11 +291,6 @@
 
 ✅ - El ImageService se encarga de interactuar con el repositorio ImageRepository,  <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;permitiendo la manipulación de los datos de las imágenes en la base de datos MySQL.<br>
-
-
-
-
-
 
 <br>
 
