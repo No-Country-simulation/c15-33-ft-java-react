@@ -17,13 +17,13 @@ public class PropertyController {
     private final PropertyService propertyService;
 
     @GetMapping("{id}")
-    public ResponseEntity<PropertyResponse> getOne(@RequestBody PropertyRequest request) throws Exception{
-        return ResponseEntity.ok(propertyService.getOne(String.valueOf(request)));
+    public ResponseEntity<PropertyResponse> getOne(@PathVariable String id, @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) throws Exception{
+        return ResponseEntity.ok(propertyService.getOne(id, token));
     }
 
     @GetMapping()
-    public ResponseEntity<List<PropertyResponse>> getAll() throws Exception{
-        return ResponseEntity.ok(propertyService.getAll());
+    public ResponseEntity<List<PropertyResponse>> getAll(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) throws Exception{
+        return ResponseEntity.ok(propertyService.getAll(token));
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -47,14 +47,31 @@ public class PropertyController {
         propertyService.save(token, propertyRequest);
     }
 
-    @PutMapping()
-    public void update(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token, @RequestBody PropertyRequest body) throws Exception {
-        propertyService.save(token, body);
+    @PutMapping("/{id}")
+    public void update(
+            @PathVariable String id,
+            @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
+            @RequestParam("title") String title,
+            @RequestParam("category") String category,
+            @RequestParam("subCategory") String subCategory,
+            @RequestParam("description") String description,
+            @RequestParam("value") double value,
+            @RequestParam("active") boolean active,
+            @RequestParam("images") List<MultipartFile> images,
+            @RequestParam("country") String country,
+            @RequestParam("city") String city,
+            @RequestParam("bathroom") int bathroom,
+            @RequestParam("bed") int bed,
+            @RequestParam("bedroom") int bedroom,
+            @RequestParam("services") List<String> services
+    ) throws Exception {
+        PropertyRequest propertyRequest = new PropertyRequest(title, category, subCategory, description, value, active, images, country, city, bathroom, bed, bedroom, services);
+        propertyService.update(id, token, propertyRequest);
     }
 
     @DeleteMapping()
-    public void delete(@RequestBody PropertyRequest body) throws Exception{
-        propertyService.delete(String.valueOf(body));
+    public void delete(@PathVariable String id, @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token ) throws Exception{
+        propertyService.delete(id, token);
     }
     
 }

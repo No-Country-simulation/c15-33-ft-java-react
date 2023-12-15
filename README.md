@@ -114,6 +114,53 @@
 <br>
 <br>
 
+<h2> 🌈 API de Usuarios 👥 </h2>
+
+☑ INFO: <br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- La API de Usuarios desarrollada en Spring Boot permite gestionar usuarios registrados en el sistema. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Está diseñada para interactuar con una base de datos para almacenar la información de los usuarios.  <br> 
+
+<h3>🔸 Endpoints 🔸</h3>
+
+✅ Obtener un usuario por ID <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Recupera un usuario específico según su ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: GET<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/user/{id}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parámetros de solicitud:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- id: ID del usuario a recuperar.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK junto con los detalles del usuario en formato UserResponse.<br>
+
+✅ Obtener todos los usuarios <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Obtiene toda la información de los usuarios almacenados.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: GET<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/user<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK junto con una lista de todos los usuarios en formato List<UserResponse>.<br>
+
+✅ Eliminar un usuario por ID <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Elimina un usuario específico según su ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: DELETE<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/user/{id}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parámetros de solicitud:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- id: ID del usuario a eliminar.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK si se elimina correctamente.<br>
+
+<h3>🔸 Funcionalidad y Proceso de Guardado 🔸</h3>
+
+✅ - Registro y Gestión de Propiedades: La API permite el registro y la gestión de usuarios con toda su info.<br>
+
+✅ - Acciones de Eliminación: Proporciona funcionalidades completas para eliminar usuarios del sistema. <br>
+
+✅ - Proceso de Eliminación: Implica la validación del token JWT proporcionado para asegurar <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; la autorización del usuario y la eliminación efectiva del usuario en la base de datos.<br>
+
+✅ - Gestión de Usuarios: La API se encarga de asociar propiedades con sus respectivos usuarios <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y realizar acciones de eliminación correctamente autorizadas.<br>
+
+<br>
+
 <h2> 🏘 API de Propiedades 🏩 </h2>
 
 ☑ INFO: <br> 
@@ -171,17 +218,17 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK si se actualiza correctamente.<br>
 
 ✅ Eliminar una propiedad <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Elimina una propiedad según el cuerpo de la solicitud.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Elimina una propiedad según el ID proporcionado.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: DELETE<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/property<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/property/{id}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parámetros de solicitud:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Cuerpo de la solicitud con el ID de la propiedad a eliminar.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- id: ID de la propiedad a eliminar.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK si se elimina correctamente.<br>
 
 <h3>🔸 Funcionalidad y Proceso de Guardado 🔸</h3>
 
-✅ - Registro y Gestión de Propiedades: La API permite el registro detallado de propiedades con toda su información.<br>
+✅ - Registro y Gestión de Propiedades: La API permite el registro detallado de propiedades con toda su info.<br>
 
 ✅ - Filtrado por Categoría: Es posible filtrar propiedades por categorías específicas. <br>
 
@@ -190,6 +237,55 @@
 ✅ - El proceso de guardado de una propiedad implica la validación del token JWT proporcionado <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;para asegurar la autorización del usuario, la asociación de imágenes con la propiedad y<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;la gestión de la información detallada para almacenarla en la base de datos MySQL.<br>
+
+<br>
+
+<h2> 🖼 API de Imágenes con Spring Boot - Integrada en el Proyecto 📷 </h2>
+
+☑ INFO: <br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Esta API de imágenes desarrollada en Spring Boot permite la gestión y manipulación de imágenes, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;proporcionando endpoints para operaciones CRUD sobre una base de datos MySQL. <br> 
+
+<h3>🔸 Endpoints 🔸</h3>
+
+✅ GET /api/img/{id}/url: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Obtiene la URL de una imagen mediante su ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna la URL de la imagen.<br>
+
+✅ GET /api/img/{id}: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Obtiene los datos de una imagen por su ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna los datos de la imagen en formato de bytes.<br>
+
+✅ POST /api/img: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Sube una imagen a la base de datos.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Request: Se espera un archivo (MultipartFile) como parámetro.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna los datos de la imagen guardada.<br>
+
+✅ POST /api/img/multi: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Sube múltiples imágenes a la base de datos.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Request: Se esperan varios archivos (MultipartFile[]) como parámetro.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna la lista de imágenes guardadas.<br>
+
+✅ PUT /api/img/{id}: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Actualiza una imagen por su ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Request: Se espera un archivo (MultipartFile) como parámetro.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna los datos de la imagen actualizada.<br>
+
+✅ DELETE /api/img/{id}: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Elimina una imagen por su ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna una respuesta sin contenido.<br>
+
+
+<h3>🔸 Funcionalidad y Proceso de Guardado 🔸</h3>
+
+✅ - La API utiliza la clase Image que representa una imagen con propiedades como ID, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tipo MIME, contenido en bytes, URL y una referencia a una entidad Property. <br>
+
+✅ - El ImageController maneja las operaciones sobre estas imágenes, utilizando el ImageService <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;para guardar, actualizar, eliminar y obtener información de las imágenes.<br>
+
+✅ - El ImageService se encarga de interactuar con el repositorio ImageRepository,  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;permitiendo la manipulación de los datos de las imágenes en la base de datos MySQL.<br>
 
 <br>
 
@@ -242,55 +338,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- JwtService se encarga de la generación y validación de los tokens JWT. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Genera tokens con información de usuario y tiempos de expiración. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Valida la autenticidad y el tiempo de expiración de los tokens durante el proceso de filtrado. <br>
-
-<br>
-
-<h2> 🖼 API de Imágenes con Spring Boot - Integrada en el Proyecto 📷 </h2>
-
-☑ INFO: <br> 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Esta API de imágenes desarrollada en Spring Boot permite la gestión y manipulación de imágenes, <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;proporcionando endpoints para operaciones CRUD sobre una base de datos MySQL. <br> 
-
-<h3>🔸 Endpoints 🔸</h3>
-
-✅ GET /api/img/{id}/url: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Obtiene la URL de una imagen mediante su ID.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna la URL de la imagen.<br>
-
-✅ GET /api/img/{id}: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Obtiene los datos de una imagen por su ID.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna los datos de la imagen en formato de bytes.<br>
-
-✅ POST /api/img: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Sube una imagen a la base de datos.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Request: Se espera un archivo (MultipartFile) como parámetro.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna los datos de la imagen guardada.<br>
-
-✅ POST /api/img/multi: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Sube múltiples imágenes a la base de datos.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Request: Se esperan varios archivos (MultipartFile[]) como parámetro.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna la lista de imágenes guardadas.<br>
-
-✅ PUT /api/img/{id}: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Actualiza una imagen por su ID.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Request: Se espera un archivo (MultipartFile) como parámetro.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna los datos de la imagen actualizada.<br>
-
-✅ DELETE /api/img/{id}: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Elimina una imagen por su ID.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna una respuesta sin contenido.<br>
-
-
-<h3>🔸 Funcionalidad y Proceso de Guardado 🔸</h3>
-
-✅ - La API utiliza la clase Image que representa una imagen con propiedades como ID, <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tipo MIME, contenido en bytes, URL y una referencia a una entidad Property. <br>
-
-✅ - El ImageController maneja las operaciones sobre estas imágenes, utilizando el ImageService <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;para guardar, actualizar, eliminar y obtener información de las imágenes.<br>
-
-✅ - El ImageService se encarga de interactuar con el repositorio ImageRepository,  <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;permitiendo la manipulación de los datos de las imágenes en la base de datos MySQL.<br>
 
 <br>
 

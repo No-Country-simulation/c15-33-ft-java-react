@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import static com.clonair.back.security.utils.Utils.obtenerUserDetails;
 
 @Service
@@ -29,12 +28,60 @@ public class PropertyServiceImp implements PropertyService {
     private final UserService userService;
 
     @Override
-    public PropertyResponse getOne(String id) throws Exception {
-        Property property = propertyRepository.findById(id)
-                .orElseThrow(() -> new Exception("Property not found"));
-        return propertyToResponseMap(property);
+    public PropertyResponse getOne(String id, String jwtToken) throws Exception {
+        if (jwtToken != null && jwtToken.startsWith("Bearer ")) {
+            String token = jwtToken.substring(7); // Extraer el token JWT sin el prefijo "Bearer "
+
+            UserDetails userDetails = obtenerUserDetails(); // Obtener los UserDetails necesarios
+
+            if (jwtService.isTokenValid(token, userDetails)) { // Validar el token JWT con los UserDetails
+                Property property = propertyRepository.findById(id)
+                        .orElseThrow(() -> new Exception("Property not found"));
+
+                // Asegurarse de que el usuario tenga permisos para acceder a la propiedad
+                if (property.getUser().getUsername().equals(userDetails.getUsername())) {
+                    return propertyToResponseMap(property);
+                } else {
+                    throw new Exception("No tiene permiso para acceder a esta propiedad");
+                }
+            } else {
+                throw new Exception("Invalid JWT token");
+            }
+        } else {
+            throw new Exception("Authorization token is missing or invalid");
+        }
     }
 
+    @Override
+    public List<PropertyResponse> getAll(String jwtToken) throws Exception {
+        if (jwtToken != null && jwtToken.startsWith("Bearer ")) {
+            String token = jwtToken.substring(7); // Extraer el token JWT sin el prefijo "Bearer "
+
+            UserDetails userDetails = obtenerUserDetails(); // Obtener los UserDetails necesarios
+
+            if (jwtService.isTokenValid(token, userDetails)) { // Validar el token JWT con los UserDetails
+                // Aquí, podrías tener reglas específicas de acceso para obtener todas las propiedades.
+                // Por ejemplo, si solo los propietarios pueden acceder a todas las propiedades, puedes verificar el rol del usuario.
+                Optional<User> userOptional = userService.findByUsername(userDetails.getUsername());
+                User user = userOptional.orElseThrow(() -> new Exception("User not found"));
+
+                if (user.getRole() == Role.OWNER) {
+                    return propertyRepository.findAll()
+                            .stream()
+                            .map(this::propertyToResponseMap)
+                            .toList();
+                } else {
+                    throw new Exception("No tiene permiso para acceder a todas las propiedades");
+                }
+            } else {
+                throw new Exception("Invalid JWT token");
+            }
+        } else {
+            throw new Exception("Authorization token is missing or invalid");
+        }
+    }
+
+    @Override
     public void save(String jwtToken, PropertyRequest request) throws Exception {
         if (jwtToken != null && jwtToken.startsWith("Bearer ")) {
             String token = jwtToken.substring(7); // Extrae el token JWT sin el prefijo "Bearer "
@@ -69,40 +116,104 @@ public class PropertyServiceImp implements PropertyService {
     }
 
     @Override
-    public List<PropertyResponse> getAll() throws Exception {
-        return propertyRepository.findAll()
-                                 .stream()
-                                 .map(this::propertyToResponseMap)
-                                 .toList();
+    public void update(String id, String jwtToken, PropertyRequest request) throws Exception {
+        if (jwtToken != null && jwtToken.startsWith("Bearer ")) {
+            String token = jwtToken.substring(7); // Extraer el token JWT sin el prefijo "Bearer "
+
+            UserDetails userDetails = obtenerUserDetails(); // Obtener los UserDetails necesarios
+
+            if (jwtService.isTokenValid(token, userDetails)) { // Validación del token JWT con los UserDetails
+                Optional<User> userOptional = userService.findByUsername(userDetails.getUsername());
+                User user = userOptional.orElse(null); // Obtener el User del Optional.
+
+                if (user != null && user.getRole() == Role.OWNER) {
+                    Property existingProperty = propertyRepository.findById(id)
+                            .orElseThrow(() -> new Exception("Property not found"));
+
+                    if (!existingProperty.getUser().getUsername().equals(userDetails.getUsername())) {
+                        throw new Exception("No tiene permiso para editar esta propiedad");
+                    }
+
+                    // Actualizar la propiedad existente con los nuevos valores del PropertyRequest
+                    Property updatedProperty = updatePropertyFromRequest(existingProperty, request);
+
+                    // Actualizar las imágenes asociadas a la propiedad
+                    List<Image> updatedImages = imageService.updatePropertyImages(existingProperty, request.images());
+                    updatedProperty.setImages(updatedImages);
+
+                    // Guardar la propiedad actualizada
+                    propertyRepository.save(updatedProperty);
+                } else {
+                    throw new Exception("El usuario no es un OWNER");
+                }
+            } else {
+                throw new Exception("Invalid JWT token");
+            }
+        } else {
+            throw new Exception("Authorization token is missing or invalid");
+        }
     }
 
     @Override
     public List<PropertyResponse> filtered(String category) throws Exception {
         return propertyRepository.findByCategory(Category.valueOf(category))
-                                 .stream()
-                                 .map(this::propertyToResponseMap)
-                                 .toList();
+                .stream()
+                .map(this::propertyToResponseMap)
+                .toList();
     }
 
     @Override
-    public void delete(String id) throws Exception {
-        Property property = propertyRepository.findById(id)
-                                              .orElseThrow(() -> new Exception("Property not found"));
-        propertyRepository.delete(property);
-    }
+    public void delete(String id, String jwtToken) throws Exception {
+        if (jwtToken != null && jwtToken.startsWith("Bearer ")) {
+            String token = jwtToken.substring(7); // Extraer el token JWT sin el prefijo "Bearer "
 
-    private List<ServiceType> mapServices(List<String> servicesAsString) {
-        return servicesAsString.stream()
-                .map(this::getServiceFromString)
-                .collect(Collectors.toList());
-    }
+            UserDetails userDetails = obtenerUserDetails(); // Obtener los UserDetails necesarios
 
-    private ServiceType getServiceFromString(String serviceString) {
-        try {
-            return ServiceType.valueOf(serviceString.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid service: " + serviceString);
+            if (jwtService.isTokenValid(token, userDetails)) { // Validar el token JWT con los UserDetails
+                Optional<User> userOptional = userService.findByUsername(userDetails.getUsername());
+                User user = userOptional.orElseThrow(() -> new Exception("User not found"));
+
+                if (user.getRole() == Role.OWNER) {
+                    Property property = propertyRepository.findById(id)
+                            .orElseThrow(() -> new Exception("Property not found"));
+
+                    if (property.getUser().getUsername().equals(userDetails.getUsername())) {
+                        propertyRepository.delete(property);
+                    } else {
+                        throw new Exception("No tiene permiso para eliminar esta propiedad");
+                    }
+                } else {
+                    throw new Exception("El usuario no tiene permiso para eliminar propiedades");
+                }
+            } else {
+                throw new Exception("Invalid JWT token");
+            }
+        } else {
+            throw new Exception("Authorization token is missing or invalid");
         }
+    }
+
+    private PropertyResponse propertyToResponseMap(Property property) {
+        List<String> imageUrls = property.getImages().stream()
+                .map(Image::getUrl)
+                .collect(Collectors.toList());
+
+        return new PropertyResponse(
+                property.getId(),
+                property.getTitle(),
+                property.getUser().getUsername(),
+                property.getCategory(),
+                property.getSubCategory(),
+                property.getDescription(),
+                property.getValue(),
+                property.isActive(),
+                imageUrls, // Enviar solo las URLs de las imágenes
+                property.getLocation(),
+                property.getAvailability(),
+                property.getBathroom(),
+                property.getBed(),
+                property.getBedroom()
+        );
     }
 
     private Property requestToPropertyMap(PropertyRequest request) throws Exception {
@@ -138,26 +249,52 @@ public class PropertyServiceImp implements PropertyService {
         return property;
     }
 
-    private PropertyResponse propertyToResponseMap(Property property) {
-        return new PropertyResponse(
-                property.getId(),
-                property.getTitle(),
-                property.getUser(),
-                property.getCategory(),
-                property.getSubCategory(),
-                property.getDescription(),
-                property.getValue(),
-                property.isActive(),
-                property.getImages()
-                        .stream()
-                        .map(Image::getUrl)
-                        .collect(Collectors.toList()),
-                property.getLocation(),
-                property.getAvailability(),
-                property.getBathroom(),
-                property.getBed(),
-                property.getBedroom()
-        );
+    private List<ServiceType> mapServices(List<String> servicesAsString) {
+        return servicesAsString.stream()
+                .map(this::getServiceFromString)
+                .collect(Collectors.toList());
+    }
+
+    private ServiceType getServiceFromString(String serviceString) {
+        try {
+            return ServiceType.valueOf(serviceString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid service: " + serviceString);
+        }
+    }
+
+    private Property updatePropertyFromRequest(Property existingProperty, PropertyRequest request) throws Exception {
+        // Crear una nueva instancia de Location para esta propiedad
+        Location location = existingProperty.getLocation();
+        if (location == null) {
+            location = new Location();
+        }
+        location.setCountry(request.country());
+        location.setCity(request.city());
+
+        // Configurar los datos en la entidad Property
+        existingProperty.setTitle(request.title());
+        existingProperty.setCategory(Category.valueOf(request.category()));
+        existingProperty.setDescription(request.description());
+        existingProperty.setValue(request.value());
+        existingProperty.setLocation(location); // Asignar la nueva instancia de Location a la Property
+        existingProperty.setBathroom(request.bathroom());
+        existingProperty.setBed(request.bed());
+        existingProperty.setBedroom(request.bedroom());
+
+        // Mapear los servicios de String a Enums Service
+        List<ServiceType> serviceTypeEnums = mapServices(request.services());
+        existingProperty.setServiceTypes(serviceTypeEnums);
+
+        // Manejar subCategory y active (si son nulos, no establecerlos)
+        if (request.subCategory() != null) {
+            existingProperty.setSubCategory(SubCategory.valueOf(request.subCategory()));
+        }
+        if (request.active() != null) {
+            existingProperty.setActive(request.active());
+        }
+
+        return existingProperty;
     }
 
 }

@@ -1,10 +1,12 @@
 
 package com.clonair.back.user;
 
+import com.clonair.back.property.Property;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,4 +23,55 @@ public class UserServiceImp implements UserService {
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+    @Override
+    public UserResponse getOne(String id, String token) throws Exception {
+        User user = findById(id);
+        if (user != null) {
+            return mapUserToResponse(user);
+        } else {
+            throw new Exception("User not found");
+        }
+    }
+
+    @Override
+    public List<UserResponse> getAll(String token) throws Exception {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(this::mapUserToResponse)
+                .toList();
+    }
+
+    @Override
+    public void delete(String id, String token) throws Exception {
+        User user = findById(id);
+        if (user != null) {
+            // Realizar aquí cualquier validación adicional necesaria antes de permitir la eliminación del usuario.
+            // Por ejemplo, verificar si el usuario tiene permiso para realizar esta acción, tal vez a través del token proporcionado.
+
+            // Si se completan las validaciones, proceder con la eliminación.
+            userRepository.deleteById(id);
+        } else {
+            throw new Exception("User not found");
+        }
+    }
+
+    private UserResponse mapUserToResponse(User user) {
+        List<String> propertyIds = user.getProperties().stream()
+                .map(Property::getId)
+                .collect(Collectors.toList());
+
+        return new UserResponse(
+                user.getId(),
+                user.getUsername(),
+                user.getFirstname(),
+                user.getLastname(),
+                user.getCountry(),
+                user.getRole(),
+                propertyIds,
+                user.getContact(),
+                user.getDescription()
+        );
+    }
+
 }

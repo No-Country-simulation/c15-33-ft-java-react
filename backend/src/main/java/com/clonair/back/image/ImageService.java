@@ -2,6 +2,8 @@
 package com.clonair.back.image;
 
 import java.util.List;
+
+import com.clonair.back.property.Property;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface ImageService {
@@ -21,5 +23,7 @@ public interface ImageService {
     public String getUrl(String id);
 
     public String generateImageUrl(String id);
+
+    public List<Image> updatePropertyImages(Property existingProperty, List<MultipartFile> newImages) throws Exception;
     
 }

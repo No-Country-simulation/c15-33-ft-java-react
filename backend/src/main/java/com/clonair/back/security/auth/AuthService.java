@@ -6,6 +6,8 @@ import com.clonair.back.user.UserRepository;
 import com.clonair.back.security.request.LoginRequest;
 import com.clonair.back.security.request.RegisterRequest;
 import com.clonair.back.user.Role;
+import java.util.List;
+import static java.util.stream.Collectors.toList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,8 +40,11 @@ public class AuthService {
         // Se Busca al usuario en la base de datos basándose en el nombre de usuario proporcionado en la solicitud de inicio de sesión. Si no encuentra al usuario, lanza una excepción.
         UserDetails user = userRepository.findByUsername(request.getUsername()).orElseThrow();
         String token = jwtService.getToken(user); // Utiliza el servicio jwtService para generar un token JWT basado en la información del usuario autenticado.
+        List<String> role = user.getAuthorities().stream().map(
+            (auth)->{return auth.getAuthority();}).toList();
         return AuthResponse.builder()  // Retorna un objeto AuthResponse que contiene el token JWT generado.
                 .token(token)
+                .role(role)
                 .build();
     }
 

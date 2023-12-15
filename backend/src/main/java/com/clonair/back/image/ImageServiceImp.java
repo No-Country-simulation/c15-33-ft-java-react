@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import com.clonair.back.property.Property;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -170,6 +173,47 @@ public class ImageServiceImp implements ImageService{
     public String generateImageUrl(String imageId) {
         // Por ejemplo, una URL base de imágenes y concatenación con la ID
         return "blob:http://127.0.0.1:5500/" + imageId;
+    }
+
+    @Override
+    @Transactional
+    public List<Image> updatePropertyImages(Property existingProperty, List<MultipartFile> newImages) throws Exception {
+        List<Image> existingImages = existingProperty.getImages();
+        List<Image> updatedImages = new ArrayList<>();
+
+        // Eliminar imágenes no presentes en la lista de imágenes nuevas
+        List<String> newImageNames = newImages.stream()
+                                              .map(MultipartFile::getOriginalFilename)
+                                              .toList();
+
+        for (Image image : existingImages) {
+            if (!newImageNames.contains(image.getName())) {
+                delete(image.getId()); // Eliminar imágenes no presentes en la lista nueva
+            }
+        }
+
+        // Guardar las nuevas imágenes y actualizar las existentes
+        for (MultipartFile newImageFile : newImages) {
+            // Si la imagen ya existe, actualízala; de lo contrario, guárdala como nueva
+            Image existingImage = existingImages.stream()
+                    .filter(img -> img.getName().equals(newImageFile.getOriginalFilename()))
+                    .findFirst()
+                    .orElse(null);
+
+            if (existingImage != null) {
+                Image updatedImage = updateOne(newImageFile, existingImage.getId());
+                if (updatedImage != null) {
+                    updatedImages.add(updatedImage);
+                }
+            } else {
+                Image savedImage = saveOne(newImageFile);
+                if (savedImage != null) {
+                    updatedImages.add(savedImage);
+                }
+            }
+        }
+
+        return updatedImages;
     }
 
 }
