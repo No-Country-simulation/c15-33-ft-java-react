@@ -31,6 +31,19 @@ public class UserController {
         return ResponseEntity.ok(userService.getAll(token));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateUser(
+            @PathVariable String id,
+            @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
+            @RequestBody UserRequest userRequest) {
+        try {
+            userService.update(id, token, userRequest);
+            return ResponseEntity.ok("User updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable String id, @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) {
         try {

@@ -54,6 +54,24 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public void update(String id, String token, UserRequest request) throws Exception {
+        User user = findById(id);
+        if (user != null) {
+            // Actualizar los campos del usuario con los datos proporcionados en el UserRequest
+            user.setFirstname(request.firstname());
+            user.setLastname(request.lastname());
+            user.setCountry(request.country());
+            user.setContact(request.contact());
+            user.setDescription(request.description());
+
+            // Guardar los cambios en la base de datos
+            userRepository.save(user);
+        } else {
+            throw new Exception("User not found");
+        }
+    }
+
+    @Override
     public void delete(String id, String token) throws Exception {
         User user = findById(id);
         if (user != null) {

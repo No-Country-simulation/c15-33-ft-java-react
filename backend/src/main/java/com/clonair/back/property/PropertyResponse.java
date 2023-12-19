@@ -1,7 +1,6 @@
 
 package com.clonair.back.property;
 import com.clonair.back.location.Location;
-import com.clonair.back.user.User;
 
 import java.util.List;
 
