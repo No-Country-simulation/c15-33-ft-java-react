@@ -2,17 +2,17 @@ package com.clonair.back.property;
 
 public enum ServiceType {
     WIFI,
-    COCINA,
-    LAVARROPAS,
-    AIRE_ACONDICIONADO,
-    CALEFACCION,
-    PILETA,
-    ESTACIONAMIENTO,
-    CUNA,
-    PARRILLA,
-    DESAYUNO,
-    FUMAR,
-    MASCOTAS,
-    CANCELACION;
+    KITCHEN,
+    WASHING_MACHINE,
+    AIR_CONDITIONER,
+    HEATING,
+    SWIMMING_POOL,
+    PARKING_LOT,
+    CRADLE,
+    GRILL,
+    BREAKFAST,
+    SMOKING_ALLOWED,
+    PETS_ALLOWED,
+    EARLY_CANCELLATION;
 
 }

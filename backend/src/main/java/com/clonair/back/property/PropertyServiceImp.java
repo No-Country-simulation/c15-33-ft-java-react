@@ -103,6 +103,8 @@ public class PropertyServiceImp implements PropertyService {
 
                     property.setImages(images); // Establecer la lista de imágenes en la propiedad.
 
+
+
                     propertyRepository.save(property); // Guardar la propiedad con las imágenes asociadas.
                 } else {
                     throw new Exception("El usuario no es un OWNER");
@@ -229,6 +231,7 @@ public class PropertyServiceImp implements PropertyService {
         property.setCategory(Category.valueOf(request.category()));
         property.setDescription(request.description());
         property.setValue(request.value());
+        property.setAvailability(request.availability());
         property.setLocation(location); // Asignar la nueva instancia de Location a la Property
         property.setBathroom(request.bathroom());
         property.setBed(request.bed());
@@ -277,6 +280,7 @@ public class PropertyServiceImp implements PropertyService {
         existingProperty.setCategory(Category.valueOf(request.category()));
         existingProperty.setDescription(request.description());
         existingProperty.setValue(request.value());
+        existingProperty.setAvailability(request.availability());
         existingProperty.setLocation(location); // Asignar la nueva instancia de Location a la Property
         existingProperty.setBathroom(request.bathroom());
         existingProperty.setBed(request.bed());

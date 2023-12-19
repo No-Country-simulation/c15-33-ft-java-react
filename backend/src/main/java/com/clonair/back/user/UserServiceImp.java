@@ -15,6 +15,17 @@ public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
 
     @Override
+    public UserResponse getByUsername(String username, String token) throws Exception{
+        Optional<User> userOptional = findByUsername(username);
+        User user = userOptional.orElse(null);
+        if (user != null) {
+            return mapUserToResponse(user);
+        } else {
+            throw new Exception("User not found");
+        }
+    }
+
+    @Override
     public User findById(String id) {
         return userRepository.findById(id).orElse(null);
     }

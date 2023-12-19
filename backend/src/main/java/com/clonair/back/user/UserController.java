@@ -16,6 +16,11 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/username/{username}")
+    public ResponseEntity<UserResponse> getByUsername(@PathVariable String username, @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) throws Exception {
+        return ResponseEntity.ok(userService.getByUsername(username, token));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getOne(@PathVariable String id, @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) throws Exception {
         return ResponseEntity.ok(userService.getOne(id, token));

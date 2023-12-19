@@ -45,7 +45,7 @@ public class JwtService {
                 .setClaims(extraClaims) // Establece los Claims adicionales proporcionados.
                 .setSubject(user.getUsername()) // Establece el sujeto del token como el nombre de usuario del objeto UserDetails.
                 .setIssuedAt(new Date(System.currentTimeMillis())) // Establece la fecha de emisión del token como el momento actual.
-                .setExpiration(new Date(System.currentTimeMillis()+1000*60*24)) // Establece la fecha de expiración del token como un día después de su emisión.
+                .setExpiration(new Date(System.currentTimeMillis()+ 1000L *1000*60*60*24)) // Establece la fecha de expiración del token como un día después de su emisión.
                 .signWith(getKey(), SignatureAlgorithm.HS256) // Firma el token con el algoritmo de hash HS256 utilizando la clave secreta.
                 .compact(); // Devuelve el token JWT compactado como una cadena.
     }

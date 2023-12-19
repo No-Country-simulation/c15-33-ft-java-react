@@ -36,6 +36,7 @@ public class PropertyController {
             @RequestParam("value") double value,
             @RequestParam("active") boolean active,
             @RequestParam("images") List<MultipartFile> images,
+            @RequestParam("availability") List<String> availability,
             @RequestParam("country") String country,
             @RequestParam("city") String city,
             @RequestParam("bathroom") int bathroom,
@@ -43,7 +44,7 @@ public class PropertyController {
             @RequestParam("bedroom") int bedroom,
             @RequestParam("services") List<String> services
     ) throws Exception {
-        PropertyRequest propertyRequest = new PropertyRequest(title, category, subCategory, description, value, active, images, country, city, bathroom, bed, bedroom, services);
+        PropertyRequest propertyRequest = new PropertyRequest(title, category, subCategory, description, value, active, images, availability, country, city, bathroom, bed, bedroom, services);
         propertyService.save(token, propertyRequest);
     }
 
@@ -58,6 +59,7 @@ public class PropertyController {
             @RequestParam("value") double value,
             @RequestParam("active") boolean active,
             @RequestParam("images") List<MultipartFile> images,
+            @RequestParam("availability") List<String> availability,
             @RequestParam("country") String country,
             @RequestParam("city") String city,
             @RequestParam("bathroom") int bathroom,
@@ -65,7 +67,7 @@ public class PropertyController {
             @RequestParam("bedroom") int bedroom,
             @RequestParam("services") List<String> services
     ) throws Exception {
-        PropertyRequest propertyRequest = new PropertyRequest(title, category, subCategory, description, value, active, images, country, city, bathroom, bed, bedroom, services);
+        PropertyRequest propertyRequest = new PropertyRequest(title, category, subCategory, description, value, active, images, availability, country, city, bathroom, bed, bedroom, services);
         propertyService.update(id, token, propertyRequest);
     }
 

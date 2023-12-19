@@ -6,7 +6,9 @@ import java.util.Optional;
 
 public interface UserService {
 
-    User findById(String id);
+    public UserResponse getByUsername(String username, String token) throws Exception;
+
+    public User findById(String id);
 
     public Optional<User> findByUsername(String username);
 
