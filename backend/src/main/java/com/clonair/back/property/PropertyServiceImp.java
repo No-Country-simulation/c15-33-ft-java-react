@@ -196,8 +196,8 @@ public class PropertyServiceImp implements PropertyService {
     }
 
     private PropertyResponse propertyToResponseMap(Property property) {
-        List<String> imageUrls = property.getImages().stream()
-                .map(Image::getUrl)
+        List<String> images = property.getImages().stream()
+                .map(Image::getId)
                 .collect(Collectors.toList());
 
         return new PropertyResponse(
@@ -209,7 +209,7 @@ public class PropertyServiceImp implements PropertyService {
                 property.getDescription(),
                 property.getValue(),
                 property.isActive(),
-                imageUrls, // Enviar solo las URLs de las imágenes
+                images, // Enviar solo las URLs de las imágenes
                 property.getLocation(),
                 property.getAvailability(),
                 property.getBathroom(),

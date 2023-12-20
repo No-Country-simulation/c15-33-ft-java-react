@@ -13,7 +13,7 @@ public record PropertyResponse(
         String description,
         double value,
         boolean active,
-        List<String> imageUrls,
+        List<String> images,
         Location location,
         List<String> availability,
         int bathroom,
