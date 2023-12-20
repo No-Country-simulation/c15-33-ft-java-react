@@ -47,8 +47,6 @@ public class Property {
     @Cascade(value = CascadeType.ALL)
     private List<Image> images;
 
-    private List<String> availability;
-
     private int bathroom;
 
     private int bed;

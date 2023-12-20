@@ -13,7 +13,6 @@ public record PropertyRequest(
         double value,
         Boolean active,
         List<MultipartFile> images,
-        List<String> availability,
         String country,
         String city,
         int bathroom,

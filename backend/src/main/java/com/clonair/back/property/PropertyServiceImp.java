@@ -211,7 +211,6 @@ public class PropertyServiceImp implements PropertyService {
                 property.isActive(),
                 images, // Enviar solo las URLs de las imágenes
                 property.getLocation(),
-                property.getAvailability(),
                 property.getBathroom(),
                 property.getBed(),
                 property.getBedroom()
@@ -231,7 +230,6 @@ public class PropertyServiceImp implements PropertyService {
         property.setCategory(Category.valueOf(request.category()));
         property.setDescription(request.description());
         property.setValue(request.value());
-        property.setAvailability(request.availability());
         property.setLocation(location); // Asignar la nueva instancia de Location a la Property
         property.setBathroom(request.bathroom());
         property.setBed(request.bed());
@@ -280,7 +278,6 @@ public class PropertyServiceImp implements PropertyService {
         existingProperty.setCategory(Category.valueOf(request.category()));
         existingProperty.setDescription(request.description());
         existingProperty.setValue(request.value());
-        existingProperty.setAvailability(request.availability());
         existingProperty.setLocation(location); // Asignar la nueva instancia de Location a la Property
         existingProperty.setBathroom(request.bathroom());
         existingProperty.setBed(request.bed());

@@ -148,6 +148,16 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK junto con una lista de todos los usuarios en formato List<UserResponse>.<br>
 
+✅ Actualizar un usuario por ID <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Actualiza la información de un usuario específico según su ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: PUT<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/user/{id}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parámetros de solicitud:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- id: ID del usuario a actualizar.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Body: Datos actualizados del usuario en formato UserRequest.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK si se actualiza correctamente junto con el mensaje "User updated successfully".<br>
+
 ✅ Eliminar un usuario por ID <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Elimina un usuario específico según su ID.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: DELETE<br>
