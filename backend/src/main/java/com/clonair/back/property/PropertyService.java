@@ -5,9 +5,11 @@ import java.util.List;
 
 public interface PropertyService {
     
-    public PropertyResponse getOne(String id,String token) throws Exception;
+    public PropertyResponse getOne(String id) throws Exception;
 
-    public List<PropertyResponse> getAll(String token) throws Exception;
+    public List<PropertyResponse> getAll() throws Exception;
+
+    public List<PropertyResponse> getByUser(String id) throws Exception;
 
     public void save(String token, PropertyRequest request) throws Exception;
     

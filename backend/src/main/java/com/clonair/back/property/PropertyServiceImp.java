@@ -28,57 +28,32 @@ public class PropertyServiceImp implements PropertyService {
     private final UserService userService;
 
     @Override
-    public PropertyResponse getOne(String id, String jwtToken) throws Exception {
-        if (jwtToken != null && jwtToken.startsWith("Bearer ")) {
-            String token = jwtToken.substring(7); // Extraer el token JWT sin el prefijo "Bearer "
+    public PropertyResponse getOne(String id) throws Exception {
+       
+        Property property = propertyRepository.findById(id)
+                .orElseThrow(() -> new Exception("Property not found"));
 
-            UserDetails userDetails = obtenerUserDetails(); // Obtener los UserDetails necesarios
-
-            if (jwtService.isTokenValid(token, userDetails)) { // Validar el token JWT con los UserDetails
-                Property property = propertyRepository.findById(id)
-                        .orElseThrow(() -> new Exception("Property not found"));
-
-                // Asegurarse de que el usuario tenga permisos para acceder a la propiedad
-                if (property.getUser().getUsername().equals(userDetails.getUsername())) {
-                    return propertyToResponseMap(property);
-                } else {
-                    throw new Exception("No tiene permiso para acceder a esta propiedad");
-                }
-            } else {
-                throw new Exception("Invalid JWT token");
-            }
-        } else {
-            throw new Exception("Authorization token is missing or invalid");
-        }
+            return propertyToResponseMap(property);
+                
     }
 
     @Override
-    public List<PropertyResponse> getAll(String jwtToken) throws Exception {
-        if (jwtToken != null && jwtToken.startsWith("Bearer ")) {
-            String token = jwtToken.substring(7); // Extraer el token JWT sin el prefijo "Bearer "
+    public List<PropertyResponse> getAll() throws Exception {
+         
+        return propertyRepository.findAll()
+                .stream()
+                .map(this::propertyToResponseMap)
+                .toList();
+                
+    }
 
-            UserDetails userDetails = obtenerUserDetails(); // Obtener los UserDetails necesarios
+    @Override
+    public List<PropertyResponse> getByUser(String id) throws Exception {
+        
+        List<PropertyResponse> properties = propertyRepository.findByUser(userService.findById(id))
+            .stream().map((prop)->{return propertyToResponseMap(prop);}).toList();
+        return properties;
 
-            if (jwtService.isTokenValid(token, userDetails)) { // Validar el token JWT con los UserDetails
-                // Aquí, podrías tener reglas específicas de acceso para obtener todas las propiedades.
-                // Por ejemplo, si solo los propietarios pueden acceder a todas las propiedades, puedes verificar el rol del usuario.
-                Optional<User> userOptional = userService.findByUsername(userDetails.getUsername());
-                User user = userOptional.orElseThrow(() -> new Exception("User not found"));
-
-                if (user.getRole() == Role.OWNER) {
-                    return propertyRepository.findAll()
-                            .stream()
-                            .map(this::propertyToResponseMap)
-                            .toList();
-                } else {
-                    throw new Exception("No tiene permiso para acceder a todas las propiedades");
-                }
-            } else {
-                throw new Exception("Invalid JWT token");
-            }
-        } else {
-            throw new Exception("Authorization token is missing or invalid");
-        }
     }
 
     @Override

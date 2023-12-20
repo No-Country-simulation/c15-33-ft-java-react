@@ -17,13 +17,18 @@ public class PropertyController {
     private final PropertyService propertyService;
 
     @GetMapping("{id}")
-    public ResponseEntity<PropertyResponse> getOne(@PathVariable String id, @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) throws Exception{
-        return ResponseEntity.ok(propertyService.getOne(id, token));
+    public ResponseEntity<PropertyResponse> getOne(@PathVariable String id) throws Exception{
+        return ResponseEntity.ok(propertyService.getOne(id));
+    }
+
+    @GetMapping("user/{id}")
+    public ResponseEntity<List<PropertyResponse>> getByUser(@PathVariable String id) throws Exception{
+        return ResponseEntity.ok(propertyService.getByUser(id));
     }
 
     @GetMapping()
-    public ResponseEntity<List<PropertyResponse>> getAll(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) throws Exception{
-        return ResponseEntity.ok(propertyService.getAll(token));
+    public ResponseEntity<List<PropertyResponse>> getAll() throws Exception{
+        return ResponseEntity.ok(propertyService.getAll());
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
