@@ -2,6 +2,8 @@
 package com.clonair.back.user;
 
 import com.clonair.back.property.Property;
+import com.clonair.back.security.jwt.JwtService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -14,8 +16,10 @@ public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
 
+    private final JwtService jwtService;
+
     @Override
-    public UserResponse getByUsername(String username, String token) throws Exception{
+    public UserResponse getByUsername(String username) throws Exception{
         Optional<User> userOptional = findByUsername(username);
         User user = userOptional.orElse(null);
         if (user != null) {
@@ -47,6 +51,9 @@ public class UserServiceImp implements UserService {
 
     @Override
     public List<UserResponse> getAll(String token) throws Exception {
+        if(!getByUsername(jwtService.getUsernameFromToken(token)).role().name().equals("ADMIN")){
+            throw new Exception("User not authorized");
+        }
         List<User> users = userRepository.findAll();
         return users.stream()
                 .map(this::mapUserToResponse)
@@ -57,6 +64,9 @@ public class UserServiceImp implements UserService {
     public void update(String id, String token, UserRequest request) throws Exception {
         User user = findById(id);
         if (user != null) {
+            if(!getByUsername(jwtService.getUsernameFromToken(token)).username().equals(user.getUsername())){
+                throw new Exception("User not authorized");
+            }
             // Actualizar los campos del usuario con los datos proporcionados en el UserRequest
             user.setFirstname(request.firstname());
             user.setLastname(request.lastname());
@@ -75,6 +85,9 @@ public class UserServiceImp implements UserService {
     public void delete(String id, String token) throws Exception {
         User user = findById(id);
         if (user != null) {
+            if(!getByUsername(jwtService.getUsernameFromToken(token)).username().equals(user.getUsername())&&!getByUsername(jwtService.getUsernameFromToken(token)).role().name().equals("ADMIN")){
+                throw new Exception("User not authorized");
+            }
             // Realizar aquí cualquier validación adicional necesaria antes de permitir la eliminación del usuario.
             // Por ejemplo, verificar si el usuario tiene permiso para realizar esta acción, tal vez a través del token proporcionado.
 

@@ -17,8 +17,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/username/{username}")
-    public ResponseEntity<UserResponse> getByUsername(@PathVariable String username, @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) throws Exception {
-        return ResponseEntity.ok(userService.getByUsername(username, token));
+    public ResponseEntity<UserResponse> getByUsername(@PathVariable String username) throws Exception {
+        return ResponseEntity.ok(userService.getByUsername(username));
     }
 
     @GetMapping("/{id}")

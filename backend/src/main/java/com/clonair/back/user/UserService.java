@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface UserService {
 
-    public UserResponse getByUsername(String username, String token) throws Exception;
+    public UserResponse getByUsername(String username) throws Exception;
 
     public User findById(String id);
 
