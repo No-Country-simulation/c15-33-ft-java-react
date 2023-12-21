@@ -149,16 +149,11 @@ public class PropertyServiceImp implements PropertyService {
             if (jwtService.isTokenValid(token, userDetails)) { // Validar el token JWT con los UserDetails
                 Optional<User> userOptional = userService.findByUsername(userDetails.getUsername());
                 User user = userOptional.orElseThrow(() -> new Exception("User not found"));
+                Property property = propertyRepository.findById(id)
+                        .orElseThrow(() -> new Exception("Property not found"));
 
-                if (user.getRole() == Role.OWNER) {
-                    Property property = propertyRepository.findById(id)
-                            .orElseThrow(() -> new Exception("Property not found"));
-
-                    if (property.getUser().getUsername().equals(userDetails.getUsername())) {
-                        propertyRepository.delete(property);
-                    } else {
-                        throw new Exception("No tiene permiso para eliminar esta propiedad");
-                    }
+                if (user.getRole() == Role.ADMIN || property.getUser().getUsername().equals(userDetails.getUsername())) {                    
+                    propertyRepository.delete(property);                                            
                 } else {
                     throw new Exception("El usuario no tiene permiso para eliminar propiedades");
                 }
