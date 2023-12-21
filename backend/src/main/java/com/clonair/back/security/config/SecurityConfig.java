@@ -4,6 +4,7 @@ import com.clonair.back.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,6 +36,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authRequest ->
                         authRequest
                                 .requestMatchers("/auth/**").permitAll() // Permite el acceso a todas las solicitudes bajo el patrón /auth/** sin autenticación. (/auth/login y /auth/register).
+                                .requestMatchers(HttpMethod.GET,"/api/property/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/img/**").permitAll()
                                 .anyRequest().authenticated()) // Requiere autenticación para cualquier otra solicitud no cubierta por el patrón mencionado anteriormente.
                 .sessionManagement(sessionManager->
                         sessionManager

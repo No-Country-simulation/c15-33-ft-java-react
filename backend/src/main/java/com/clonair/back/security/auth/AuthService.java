@@ -58,12 +58,10 @@ public class AuthService {
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .country(request.getCountry())
+                .contact((request.getContact()!=null)?request.getContact():"*")
+                .description((request.getDescription()!=null)?request.getDescription():"*")
                 .role(Role.valueOf(request.getRole())) // Define el rol del usuario como Role.USER (un usuario común en este caso).                       
                 .build();
-        if(request.getRole()=="OWNER"){
-            user.setContact(request.getContact());
-            user.setDescription(request.getDescription());            
-        }
                 
         userRepository.save(user); // Guarda el nuevo usuario en la base de datos.
 
