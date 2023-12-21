@@ -64,9 +64,11 @@ public class AuthService {
                 .build();
                 
         userRepository.save(user); // Guarda el nuevo usuario en la base de datos.
-
+        List<String> role = user.getAuthorities().stream().map(
+            (auth)->{return auth.getAuthority();}).toList();
         return AuthResponse.builder() // Retorna un objeto AuthResponse que encapsula el token JWT generado.
                 .token(jwtService.getToken(user)) // Se genera un token JWT utilizando jwtService.
+                .role(role)
                 .build();
     }
 

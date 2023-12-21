@@ -14,6 +14,7 @@ public record PropertyResponse(
         double value,
         boolean active,
         List<String> images,
+        List<String> services,
         Location location,
         int bathroom,
         int bed,
