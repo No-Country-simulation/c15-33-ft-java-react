@@ -16,12 +16,12 @@ public class PropertyController {
 
     private final PropertyService propertyService;
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PropertyResponse> getOne(@PathVariable String id) throws Exception{
         return ResponseEntity.ok(propertyService.getOne(id));
     }
 
-    @GetMapping("user/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<List<PropertyResponse>> getByUser(@PathVariable String id) throws Exception{
         return ResponseEntity.ok(propertyService.getByUser(id));
     }

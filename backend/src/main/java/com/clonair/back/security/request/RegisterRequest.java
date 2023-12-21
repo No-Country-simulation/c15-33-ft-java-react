@@ -22,6 +22,8 @@ public class RegisterRequest {
     String lastname;
     String country;
     String role;
+    String description;
+    String contact;
 
 }
 

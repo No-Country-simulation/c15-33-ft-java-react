@@ -58,9 +58,13 @@ public class AuthService {
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .country(request.getCountry())
-                .role(Role.valueOf(request.getRole())) // Define el rol del usuario como Role.USER (un usuario común en este caso).
+                .role(Role.valueOf(request.getRole())) // Define el rol del usuario como Role.USER (un usuario común en este caso).                       
                 .build();
-
+        if(request.getRole()=="OWNER"){
+            user.setContact(request.getContact());
+            user.setDescription(request.getDescription());            
+        }
+                
         userRepository.save(user); // Guarda el nuevo usuario en la base de datos.
 
         return AuthResponse.builder() // Retorna un objeto AuthResponse que encapsula el token JWT generado.
