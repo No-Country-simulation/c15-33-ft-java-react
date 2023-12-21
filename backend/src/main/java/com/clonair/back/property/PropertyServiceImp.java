@@ -57,6 +57,15 @@ public class PropertyServiceImp implements PropertyService {
     }
 
     @Override
+    public List<PropertyResponse> getByCategory(String category) throws Exception {
+        
+        List<PropertyResponse> properties = propertyRepository.findByCategory(Category.valueOf(category))
+            .stream().map((prop)->{return propertyToResponseMap(prop);}).toList();
+        return properties;
+
+    }
+
+    @Override
     public void save(String jwtToken, PropertyRequest request) throws Exception {
         if (jwtToken != null && jwtToken.startsWith("Bearer ")) {
             String token = jwtToken.substring(7); // Extrae el token JWT sin el prefijo "Bearer "

@@ -26,6 +26,11 @@ public class PropertyController {
         return ResponseEntity.ok(propertyService.getByUser(id));
     }
 
+    @GetMapping("/category/{id}")
+    public ResponseEntity<List<PropertyResponse>> getByCategory(@PathVariable String category) throws Exception{
+        return ResponseEntity.ok(propertyService.getByCategory(category));
+    }
+
     @GetMapping()
     public ResponseEntity<List<PropertyResponse>> getAll() throws Exception{
         return ResponseEntity.ok(propertyService.getAll());

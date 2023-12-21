@@ -11,6 +11,8 @@ public interface PropertyService {
 
     public List<PropertyResponse> getByUser(String id) throws Exception;
 
+    public List<PropertyResponse> getByCategory(String category) throws Exception;
+
     public void save(String token, PropertyRequest request) throws Exception;
     
     public void update(String id,String token, PropertyRequest request) throws Exception;
