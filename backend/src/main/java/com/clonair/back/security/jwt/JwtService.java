@@ -148,4 +148,8 @@ public class JwtService {
         }
         return null;
     }
+
+    public String withoutBearer(String token){
+        return token.substring(7);
+    }
 }
