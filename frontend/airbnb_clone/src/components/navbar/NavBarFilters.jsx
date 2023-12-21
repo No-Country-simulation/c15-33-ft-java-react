@@ -1,7 +1,6 @@
-import { Button } from "@material-tailwind/react";
 import { Filters, SubcategoryButtons } from "../filters";
 import { faCampground, faCity, faHouseChimney, faHouseFloodWater, faMountainCity, faSun, faUmbrellaBeach, faWarehouse, faWaterLadder } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+
 
 export const NavBarFilters = () => {
     const filtersData = [
@@ -22,16 +21,7 @@ export const NavBarFilters = () => {
                 {filtersData.map((filter, index) => (                    
                     <SubcategoryButtons  key={index} icon={filter.icon} text={filter.text}/>
                 ))}   
-            </div>  
-            {/* Boton Admin y registro de propiedad temporales */} 
-            <Link to="/admin-panel">
-                <Button variant="text">Admin</Button>
-            </Link>     
-            <Link to="/account-settings">
-                <Button variant="text">Cuenta</Button>
-            </Link>  
-            {/* Boton Admin y registro de propiedad temporales */}    
-
+            </div>
             <Filters />
         </div>
     );

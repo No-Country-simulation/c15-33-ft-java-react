@@ -1,6 +1,6 @@
 import { Button } from "@material-tailwind/react"
 import { useAuth } from "../context/authContext";
-import { getAllProperties } from "../services/apiRequests";
+import { deleteProperty, getAllProperties, getPropertiesByUserId, getProperty } from "../services/apiRequests";
 
 
 export const Test = () => {
@@ -54,35 +54,15 @@ export const Test = () => {
 
       const id = "1681b20b-813b-40ca-ad21-47b6c5583dee"
 
-       async function getProperty (id) {
-        const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
-        try {
-            const response = await fetch(`${apiUrl}/api/property/${id}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-    
-            if(response.ok){
-                const data = await response.json()
-                return data
-            } else {
-                console.error('error de respuesta');
-            }
-            
-            } catch (error) {
-                console.error('Error de red:', error);
-            }
-    }
-
-    
+      const userId= "c536542a-66f7-4fb5-8e99-884c594e1bcf"
 
     return (
         <>
+            {/* <Button onClick={() => deleteProperty(id)}>Delete property</Button> */}
             {/* <Button onClick={getUsers}>Get Data</Button>
-            <Button onClick={() => getProperty(id)}>Get Property</Button>
-            <Button onClick={getAllProperties}>Get Properties</Button> */}
+            <Button onClick={() => (getProperty(id))}>Get Property</Button>
+            <Button onClick={getAllProperties}>Get Properties</Button>
+            <Button onClick={() => getPropertiesByUserId(userId)}>Get User Properties</Button> */}
 
         </>
     )

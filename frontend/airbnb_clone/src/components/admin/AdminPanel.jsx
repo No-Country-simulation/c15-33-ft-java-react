@@ -1,4 +1,4 @@
-import { faChevronDown, faMagnifyingGlass, faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faMagnifyingGlass, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Card,
@@ -10,18 +10,16 @@ import {
   Chip,  
   Tabs,
   TabsHeader,
-  Tab,
-  Avatar,
+  Tab,  
   IconButton,
   Tooltip,
   Dialog,
   DialogHeader,
   DialogBody,
-  DialogFooter,
-  CardFooter,
+  DialogFooter,  
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
-import { deleteUser, getAllUsers, getPropertiesByUserId } from "../../services/apiRequests";
+import {  deleteProperty,  deleteUser, getAllUsers, getPropertiesByUserId } from "../../services/apiRequests";
  
 const TABS = [
   {
@@ -42,31 +40,6 @@ const TABLE_HEAD = ["Username", "Tipo Usuario", "UserId", "Contacto", "Country",
 
 const TABLE_PROPS_HEAD = ["Título", "PropertyID", "Owner", "Status", ""];
 
-//Hay que traer la info del back
-/* const TABLE_PROPS_ROWS = [
-  {
-    title: "Casa en la Playa",
-    owner: "Manager",
-    status: "Activa",
-  },
-  {
-    title: "Departamento 3 ambientes",
-    owner: "Manager",
-    status: "Inactiva",
-  },
-  {
-    title: "Cabaña en la Montaña",
-    owner: "Manager",
-    status: "Activa",
-  },
-  {
-    title: "Casa con Pileta",
-    owner: "Manager",
-    status: "Inactiva",
-  },  
-];  */
- 
- 
 export const AdminPanel = () => {
   const [searchText, setSearchText] = useState('');
   const [activeTab, setActiveTab] = useState('all');
@@ -75,8 +48,10 @@ export const AdminPanel = () => {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [openAlert, setOpenAlert] = useState(false);
   const [userProperties, setUserProperties] = useState([]);
+  const [openPropAlert, setOpenPropAlert] = useState(false);
  
   const handleOpenAlert = () => setOpenAlert(!openAlert);
+  const handleOpenPropAlert = () => setOpenPropAlert(!openPropAlert);
 
   const handleOpenPropList = (userId) => {
     setOpenPropList(!openPropList);    
@@ -92,6 +67,15 @@ export const AdminPanel = () => {
         setUsersData(updatedUsers);
     } catch (error) {
         console.error('Error deleting user:', error);
+    }
+  };
+
+  const handleDeleteProperty = async (propertyId, userId) => {
+    try {      
+      await deleteProperty(propertyId);      
+      fetchUserProperties(userId);
+    } catch (error) {
+      console.error('Error al eliminar la propiedad:', error);
     }
   };
 
@@ -180,7 +164,7 @@ export const AdminPanel = () => {
               {TABLE_HEAD.map((head, index) => (
                 <th
                   key={head}
-                  className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
                   <Typography
                     variant="small"
                     color="blue-gray"
@@ -261,8 +245,8 @@ export const AdminPanel = () => {
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      {userProperties==""?<p>No hay propiedades registradas</p> :userProperties.map(({ title, propertyId,  owner, status }) => (
-                                        <tr key={propertyId} className="even:bg-blue-gray-50/50">
+                                      {userProperties==""? <Typography>No hay propiedades registradas</Typography> :userProperties.map(({ title, id,  username, active }) => (
+                                        <tr key={id} className="even:bg-blue-gray-50/50">
                                           <td className="p-4">
                                             <Typography variant="small" color="blue-gray" className="font-normal">
                                               {title}
@@ -270,30 +254,48 @@ export const AdminPanel = () => {
                                           </td>
                                           <td className="p-4">
                                             <Typography variant="small" color="blue-gray" className="font-normal">
-                                              {propertyId}
+                                              {id}
                                             </Typography>
                                           </td>
                                           <td className="p-4">
                                             <Typography variant="small" color="blue-gray" className="font-normal">
-                                              {owner}
+                                              {username}
                                             </Typography>
                                           </td>
-                                          <td className="p-4">
-                                            <Typography variant="small" color="blue-gray" className="font-normal">
-                                              {status}
-                                            </Typography>
+                                          <td className="p-4">                                            
+                                            <Chip
+                                              variant="ghost"
+                                              size="sm"
+                                              value={active ? "activa" : "inactiva"}
+                                              color={active ? "green" : "blue-gray"}
+                                            />
                                           </td>
-                                          <td className="p-4">
-                                            <Tooltip content="Edit Property Status">
-                                              <IconButton variant="text">
-                                                <FontAwesomeIcon icon={faPencil} className="h-4 w-4"/>
-                                              </IconButton>
-                                            </Tooltip>
-                                            <Tooltip content="Delete Property">
-                                              <IconButton variant="text">                        
+                                          <td className="p-4"> 
+                                            <Tooltip content="Borrar Propiedad">
+                                              <IconButton variant="text" onClick={handleOpenPropAlert}>                        
                                                 <FontAwesomeIcon icon={faTrashCan} className="h-4 w-4"/>
                                               </IconButton>
-                                            </Tooltip>                                            
+                                            </Tooltip>
+                                            <Dialog open={openPropAlert} handler={handleOpenPropAlert}>
+                                              <DialogHeader>¿Eliminar propiedad?</DialogHeader>
+                                              <DialogBody>
+                                                <Typography variant="h5">¿Estás seguro que deseas borrar la propiedad?</Typography>
+                                                <Typography variant="h6">Los datos no podrán recuperarse y el usuario deberá volver a registrar la propiedad.</Typography>                            
+                                              </DialogBody>
+                                              <DialogFooter>
+                                                <Button
+                                                  variant="text"
+                                                  color="red"
+                                                  onClick={handleOpenPropAlert}
+                                                  className="mr-1"
+                                                >
+                                                  <span>Cancel</span>
+                                                </Button>
+                                                <Button variant="gradient" color="green"  onClick={() => handleDeleteProperty(id)} >
+                                                  <span>Confirm</span>
+                                                </Button>
+                                              </DialogFooter>
+                                            </Dialog>                                            
                                           </td>
                                         </tr>
                                       ))}

@@ -10,6 +10,7 @@ export const Header = () => {
         '/admin-panel', 
         '/personal-info', 
         '/properties-form',
+        '/properties'
     ];
    
 

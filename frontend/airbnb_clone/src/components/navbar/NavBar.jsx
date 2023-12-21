@@ -1,5 +1,5 @@
 import LogoIcon from "../../assets/logoicon/LogoIcon";
-import { Button, Typography } from "@material-tailwind/react";
+import { Button, Menu, MenuHandler, MenuItem, MenuList, Typography } from "@material-tailwind/react";
 import  { useEffect, useRef, useState } from 'react';
 import { Search } from "../search/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,7 +12,7 @@ import { useAuth } from "../../context/authContext";
 export const NavBar = ({ hideSearch }) => {      
    
 
-    const { user, logoutUser } = useAuth()
+    const { user, logoutUser, isAdmin, isOwner } = useAuth()
 
     const [isSearchOpen, setIsSearchOpen] = useState(false);
         
@@ -69,7 +69,17 @@ export const NavBar = ({ hideSearch }) => {
                             <Typography>
                                 Bienvenido: {user ? user.firstname : ""}
                             </Typography>
-                            <Button variant="text" className="rounded-full" onClick={() => logoutUser()}>Cerrar Sesión</Button>
+                            <Menu>
+                                <MenuHandler>
+                                    <Button variant="outlined" className="rounded-full">Menu</Button>
+                                </MenuHandler>
+                                <MenuList>
+                                    {isAdmin && <Link to="/admin-panel"><MenuItem>Panel Admin</MenuItem></Link>}
+                                    {isOwner && <Link to="/property-register"><MenuItem>Registar una Propiedad</MenuItem></Link>}
+                                    <Link to="/account-settings"><MenuItem>Cuenta</MenuItem></Link>
+                                    <MenuItem onClick={() => logoutUser()}>Cerrar Sesión</MenuItem>
+                                </MenuList>
+                            </Menu>
                         </div>}
                         <Forms
                             openLogin={openLogin}

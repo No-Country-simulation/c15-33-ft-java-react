@@ -11,11 +11,10 @@ import {
     Checkbox,
   } from "@material-tailwind/react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { getAllProperties } from "../../services/apiRequests";
 
 export const Filters = () => {    
-    const [open, setOpen] = useState(false);
-    const navigate = useNavigate();
+    const [open, setOpen] = useState(false);    
     
     const handleOpen = () => {
         setOpen(!open)        
@@ -29,8 +28,7 @@ export const Filters = () => {
         setSelectedBeds('cualquiera'),
         setSelectedBaths('cualquiera'),
         handleClearCheckboxes()
-    }
-    
+    }    
 
     //Price inputs
     const [minValue, setMinValue] = useState(0);
@@ -124,24 +122,34 @@ export const Filters = () => {
     
       
     //Filters Submit Button
-    const handleFilters = () => {        
+    const handleFilters = async() => {            
         
-          
-        const searchParams = new URLSearchParams();  
-          
-        searchParams.set('minValue', minValue);
-        searchParams.set('maxValue', maxValue);
-        searchParams.set('propType', selectedTypes);
-        searchParams.set('selectedRooms', selectedRooms);
-        searchParams.set('selectedBeds', selectedBeds);
-        searchParams.set('selectedBaths', selectedBaths);
-        searchParams.set('services', checkboxes);
-        
-  
-          // Actualizar la URL
-          //ejemplo: http://localhost:5173/resultados?minValue=116&maxValue=844&propType=department%2Chotel&selectedRooms=2&selectedBeds=4&selectedBaths=cualquiera&services=%5Bobject+Object%5D
-          
-        navigate(`/resultados?${searchParams.toString()}`);
+        try {           
+            const properties = await getAllProperties();
+            
+            const filteredProperties = properties.filter(property => {                
+                const priceRange = property.value >= minValue && property.value <= maxValue;
+                
+                const propertyTypeSelected = selectedTypes.length === 0 || selectedTypes.includes(property.category);
+                
+                const roomsMatch = selectedRooms === 'cualquiera' || property.bedroom == selectedRooms;
+                const bedsMatch = selectedBeds === 'cualquiera' || property.bed == selectedBeds;
+                const bathsMatch = selectedBaths === 'cualquiera' || property.bathroom == selectedBaths;
+
+                // Filtrar por servicios
+                const servicesMatch = Object.keys(checkboxes).every(key => {
+                    return !checkboxes[key] || property.services.includes(key);
+                });               
+               
+                return priceRange && propertyTypeSelected && roomsMatch && bedsMatch && bathsMatch &&servicesMatch;
+            });
+            
+            console.log(filteredProperties);
+           
+
+        } catch (error) {
+            console.error('Error al obtener propiedades:', error);
+        }
     };
   
 
@@ -171,13 +179,13 @@ export const Filters = () => {
                     <section className="mt-10">
                         <h2 className="text-lg font-bold pb-2">Tipo de Propiedad</h2>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 justify-items-center">
-                            <Button variant="outlined" className={getButtonClassName('house')} onClick={() => handleTypeSelection('house')}> <FontAwesomeIcon icon={faHouse} size="xl"/>Casa</Button>
+                            <Button variant="outlined" className={getButtonClassName('HOUSE')} onClick={() => handleTypeSelection('HOUSE')}> <FontAwesomeIcon icon={faHouse} size="xl"/>Casa</Button>
 
-                            <Button variant="outlined" className={getButtonClassName('department')} onClick={() => handleTypeSelection('department')}> <FontAwesomeIcon icon={faBuilding} size="xl" />Departamento</Button>
+                            <Button variant="outlined" className={getButtonClassName('APARTMENT')} onClick={() => handleTypeSelection('APARTMENT')}> <FontAwesomeIcon icon={faBuilding} size="xl" />Departamento</Button>
 
-                            <Button variant="outlined" className={getButtonClassName('guestHouse')} onClick={() => handleTypeSelection('guestHouse')}> <FontAwesomeIcon icon={faWarehouse} size="xl" />Casa de huéspedes</Button>
+                            <Button variant="outlined" className={getButtonClassName('GUEST_HOUSE')} onClick={() => handleTypeSelection('GUEST_HOUSE')}> <FontAwesomeIcon icon={faWarehouse} size="xl" />Casa de huéspedes</Button>
 
-                            <Button variant="outlined" className={getButtonClassName('hotel')} onClick={() => handleTypeSelection('hotel')}> <FontAwesomeIcon icon={faHotel} size="xl" />Hotel</Button>
+                            <Button variant="outlined" className={getButtonClassName('HOTEL')} onClick={() => handleTypeSelection('HOTEL')}> <FontAwesomeIcon icon={faHotel} size="xl" />Hotel</Button>
                         </div>
                     </section>
                     <section className="mt-10">
