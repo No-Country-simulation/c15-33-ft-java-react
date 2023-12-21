@@ -6,12 +6,11 @@ import {
     faMapLocationDot,
     faMagnifyingGlass
   } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from 'react-router-dom';
 import { countries } from 'countries-list';
+import { getAllProperties } from '../../services/apiRequests';
 
 export const Search = () => {    
-    const queryParams = new URLSearchParams(location.search);
-    const navigate = useNavigate();
+    const queryParams = new URLSearchParams(location.search);    
 
     const [destination, setDestination] = useState("");  
     const [openOptions, setOpenOptions] = useState(false);
@@ -50,23 +49,29 @@ export const Search = () => {
       };
     }, []);
   
-    const handleSearch = () => {
+    const handleSearch = async () => {
         if (destination.trim() === '' ) {
             setEmptyInput(true);
             return;
         }  
        
-        const searchParams = new URLSearchParams();    
+        try {
+            const properties = await getAllProperties();
+
+            const filteredProperties = properties.filter(property => {                
+                const matchesCountry = property.location.country === destination;               
+                const matchesRooms = property.bedroom >= options.room;
+                const totalGuests = options.adult + options.children;                
+                const enoughBeds = property.bed >= totalGuests;
+                
+                return matchesCountry && matchesRooms && enoughBeds;
+            });            
         
-        searchParams.set('destination', destination);        
-        searchParams.set('adults', options.adult);
-        searchParams.set('children', options.children);
-        searchParams.set('rooms', options.room);
-    
-        //ejemplo: http://localhost:5173/resultados?destination=Afghanistan&adults=1&children=0&rooms=1
+            console.log(filteredProperties);
         
-        // (cambiar '/resultados' por ruta real)
-        navigate(`/resultados?${searchParams.toString()}`);
+        } catch (error) {
+            console.error('Error al obtener propiedades:', error);
+        }
     };
     
     const countryNames = (Object.values(countries).map((country) => country.name)).sort();
