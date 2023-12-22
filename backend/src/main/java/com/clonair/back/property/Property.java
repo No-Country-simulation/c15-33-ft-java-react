@@ -36,7 +36,6 @@ public class Property {
     private boolean active;
 
     @ManyToOne
-    @Cascade(value = CascadeType.ALL)
     private User user;
 
     @OneToOne
