@@ -6,6 +6,7 @@ import {
   faHotel,
   // faSuitcase 
 } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../../../context/authContext";
 
 const ownerSections = [
     {
@@ -49,7 +50,20 @@ const ownerSections = [
   ];
 
 export const AccountSettings = () => {
-  const isOwner = true;
+  const { user } = useAuth();
+  const { id, username , firstname, lastname, country, role, propertyIds, contact, description } = user;
+
+  // {
+  //   "id": "a276185b-516b-4d88-93a6-ad1a40e9d5f1",
+  //   "username": "brayan@gmail.com",
+  //   "firstname": "Brayan",
+  //   "lastname": "Sanchez",
+  //   "country": "Honduras",
+  //   "role": "USER",
+  //   "propertyIds": [],
+  //   "contact": null,
+  //   "description": null
+  // }
   return (  
     <div
       className="
@@ -60,17 +74,16 @@ export const AccountSettings = () => {
         md:px-20
         sm:px-2
         px-4
-        pb-4
-      "
+        pb-4"
     >
         <div className="container mt-5 font-mono">
           <div className="text-2xl">Cuenta:
             {
-              isOwner ? <span> Propietario</span> : <span> Huesped</span>
+              role !== "USER" ? <span> Propietario</span> : <span> Huesped</span>
             }
           </div>
           <span className="text-lg">
-              Nombre del usuario, usuario@gmail.com
+            { firstname }, {username}
           </span>
         </div>
         <div 
@@ -84,13 +97,25 @@ export const AccountSettings = () => {
           gap-8
           "
         >
-          {isOwner ? ownerSections.map((section) => (
-            <Link key={section.id} to={section.path}>
+          {role !== "USER" ? ownerSections.map((section) => (
+            <Link 
+              key={section.id}
+              to={section.path}
+              state={{
+                id, username , firstname, lastname, country, propertyIds, contact, description
+              }}
+            >
               <UserCardDashboard section={section} />
             </Link>
           )) : 
           userSections.map((section) => (
-            <Link key={section.id} to={section.path}>
+            <Link
+              key={section.id}
+              to={section.path}
+              state={{
+                id, username , firstname, lastname, country, propertyIds, contact, description
+              }}
+            >
               <UserCardDashboard section={section} />
             </Link>
           ))}

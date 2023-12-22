@@ -5,14 +5,13 @@ import { DetailCardHead, DetailCardInfo, DetailCardReservation } from "../";
 export const DetailContainerCard = () => {
 
   const id = useParams();
-  id
 
   let { state } = useLocation();
-  const {description, country, value, image, bedroom, bed, bathroom} = state;
+  const { title, username, category, description, subCategory, value, active, images, location, bedroom, bed, bathroom } = state;
 
   let totalPrice = value;
 
-  return ( 
+  return (
     <Container>
       <div 
         className="
@@ -22,9 +21,9 @@ export const DetailContainerCard = () => {
       >
         <div className="flex flex-col gap-6">
           <DetailCardHead
-            description={description}
-            country={country}
-            image={image}
+            title={title}
+            country={location.country}
+            image={`http://149.50.133.215:80/api/img/${images[0]}`}
           />
           <div 
             className="
@@ -36,13 +35,15 @@ export const DetailContainerCard = () => {
             "
           >
             <DetailCardInfo
-              userName={"Kasey"}
-              description={description}
+              userName={username}
               bedroom={bedroom}
               bed={bed}
               bathroom={bathroom}
-              label={"Favorito entre los huespedes"}
-              littleDescription={"Uno de los alojamientos preferidos entre los huéspedes en Airbnb"}
+              description={description}
+
+              category={category}
+              subCategory={subCategory}
+              active={active}
             />
             <div 
               className="
@@ -53,6 +54,7 @@ export const DetailContainerCard = () => {
               "
             >
               <DetailCardReservation
+                id={id}
                 value={value}
                 totalPrice={totalPrice}
               />

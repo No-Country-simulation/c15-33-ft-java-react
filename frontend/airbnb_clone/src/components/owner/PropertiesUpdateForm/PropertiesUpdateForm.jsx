@@ -8,20 +8,34 @@ export const PropertiesUpdateForm = () => {
 
   let { state } = useLocation();
 
-  const {description, country, value, image, id} = state;
+  const {
+    title,
+    location,
+    category,
+    subCategory,
+    bathroom,
+    bed,
+    bedroom,
+    serviceTypes,
+    active,
+    description,
+    value,
+    images,
+    id
+  } = state;
 
   const [formData, setFormData] = useState({
     description,
-    country,
+    location,
     value,
-    image,
+    images,
     id,
   });
 
   const [isDescriptionEditing, setIsDescriptionEditing] = useState(false);
-  const [isCountryEditing, setIsCountryEditing] = useState(false);
+  const [isLocationEditing, setIsLocationEditing] = useState(false);
   const [isValueEditing, setIsValueEditing] = useState(false);
-  const [isImageEditing, setIsImageEditing] = useState(false);
+  const [isImagesEditing, setIsImagesEditing] = useState(false);
 
   const handleSubmit = (e) => {
       e.preventDefault();
@@ -34,8 +48,8 @@ export const PropertiesUpdateForm = () => {
           setIsDescriptionEditing(false);
           break;
   
-        case 'country':
-          setIsCountryEditing(false);
+        case 'location':
+          setIsLocationEditing(false);
           break;
   
         case 'value':
@@ -43,7 +57,7 @@ export const PropertiesUpdateForm = () => {
           break;
   
         case 'image':
-          setIsImageEditing(false);
+          setIsImagesEditing(false);
           break;
       
         default:
@@ -58,8 +72,8 @@ export const PropertiesUpdateForm = () => {
           setIsDescriptionEditing(true);
           break;
   
-        case 'country':
-          setIsCountryEditing(true);
+        case 'location':
+          setIsLocationEditing(true);
           break;
   
         case 'value':
@@ -67,7 +81,7 @@ export const PropertiesUpdateForm = () => {
           break;
   
         case 'image':
-          setIsImageEditing(true);
+          setIsImagesEditing(true);
           break;
       
         default:
@@ -100,10 +114,10 @@ export const PropertiesUpdateForm = () => {
           <div className="mb-4">
               <Typography variant="h5" className="mb-2">País</Typography>
 
-              <Input name="country" maxLength="100" value={formData.country} onChange={(e) => handleChange('country', e.target.value)} readOnly={!isCountryEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('country')} icon={faPenToSquare} />} />
+              <Input name="location" maxLength="100" value={formData.location} onChange={(e) => handleChange('location', e.target.value)} readOnly={!isLocationEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('location')} icon={faPenToSquare} />} />
 
-              {isCountryEditing && (
-                <Button className="mt-2" onClick={() => handleSave('country')}
+              {isLocationEditing && (
+                <Button className="mt-2" onClick={() => handleSave('location')}
                 >
                   Guardar
                 </Button>
@@ -126,10 +140,10 @@ export const PropertiesUpdateForm = () => {
           <div className="mb-4">
               <Typography variant="h5" className="mb-2">Imagen</Typography>
 
-              <Input name="image" maxLength="100" value={formData.image} onChange={(e) => handleChange('image', e.target.value)} readOnly={!isImageEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('image')} icon={faPenToSquare} />} />
+              <Input name="images" maxLength="100" value={formData.images} onChange={(e) => handleChange('images', e.target.value)} readOnly={!isImagesEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('images')} icon={faPenToSquare} />} />
 
-              {isImageEditing && (
-                <Button className="mt-2" onClick={() => handleSave('image')}
+              {isImagesEditing && (
+                <Button className="mt-2" onClick={() => handleSave('images')}
                 >
                   Guardar
                 </Button>
