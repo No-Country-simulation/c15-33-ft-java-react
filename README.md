@@ -16,7 +16,7 @@
 
 <h2> 🚩 Funcionalidades Principales ⚜ </h2>
 
-✅ - Registro de Usuarios: Permite a los usuarios crear cuentas para acceder a la plataforma. <br>
+✅ - Registro de Usuarios: Permite a los usuarios crear cuentas USER Y OWNER para acceder a la plataforma. <br>
 
 ✅ - Autenticación y Login: Proceso seguro de inicio de sesión para acceder a funcionalidades exclusivas. <br>
 
@@ -27,14 +27,12 @@
 
 ✅ - Detalles de Servicios: Muestra información detallada sobre los servicios disponibles en cada propiedad. <br>
 
-✅ - Fechas Disponibles para Reservar: Permite a los usuarios verificar la disponibilidad de fechas. <br>
-
 <br>
 
 <h2> 👨‍💻 Tecnologías Utilizadas 🔮 </h2>
 
 ✅ - Frontend: React y Tailwind para una interfaz de usuario moderna y amigable, <br> 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; desplegado en un contenedor Docker. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; desplegado en vercel. <br>
 
 ✅ - Backend: Spring Boot para la lógica del servidor y la gestión de datos, <br> 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; desplegado en un contenedor Docker. <br>
@@ -44,6 +42,7 @@
 
 ✅ - Docker: Utilizado para contenerizar el frontend, backend y la base de datos, <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; facilitando el despliegue en entornos de producción. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Deploy de contenedores de docker en Donweb. <br>
 
 ✅ - Sistema de Autenticación y Autorización: Utiliza tokens JWT para la autenticación y autorización de usuarios. <br>
 
