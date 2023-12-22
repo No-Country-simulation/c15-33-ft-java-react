@@ -70,11 +70,10 @@ export const AdminPanel = () => {
     }
   };
 
-  const handleDeleteProperty = async (propertyId, userId) => {
+  const handleDeleteProperty = async (id) => {
     try {      
-      await deleteProperty(propertyId);      
-      fetchUserProperties(userId);
-    } catch (error) {
+      await deleteProperty(id);    
+      } catch (error) {
       console.error('Error al eliminar la propiedad:', error);
     }
   };
@@ -86,23 +85,22 @@ export const AdminPanel = () => {
     } catch (error) {
       console.error('Error al obtener propiedades:', error);
     }
-  };
-
-  const fetchData = async () => {
-    try {
-      const data = await getAllUsers();
-      if (data) {
-        console.log('Usuarios recibidos:', data);
-        setUsersData(data);
-      } else {
-        console.error('No se recibieron datos de usuarios.');
-      }
-    } catch (error) {
-      console.error('Error al obtener usuarios:', error);
-    }
-  };
+  };  
  
-   useEffect(() => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getAllUsers();
+        if (data) {          
+          setUsersData(data);
+        } else {
+          console.error('No se recibieron datos de usuarios.');
+        }
+      } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+      }
+    };
+
     fetchData();
   }, []);  
 
@@ -368,8 +366,7 @@ export const AdminPanel = () => {
                                 variant="text"
                                 color="red"
                                 onClick={handleOpenAlert}
-                                className="mr-1"
-                              >
+                                className="mr-1">
                                 <span>Cancel</span>
                               </Button>
                               <Button variant="gradient" color="green" onClick={() => handleDeleteUser(id)}>

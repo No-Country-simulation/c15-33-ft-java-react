@@ -9,6 +9,9 @@ import { AdminPanel } from "../components/admin/AdminPanel";
 import { Test } from "../components/Test";
 import { PropertiesContainer } from "../components";
 import { PropertiesUpdateForm } from "../components/owner";
+import FilteredSubcategory from "../components/filteredProperties/FilteredSubcategory";
+import FilteredSearch from "../components/filteredProperties/FilteredSearch";
+import FilteredFilters from "../components/filteredProperties/FilteredFilters";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +22,18 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <CardContainer/>,
+            },
+            {
+                path: "/filtered-properties/:text",
+                element: <FilteredSubcategory/>,
+            },
+            {
+                path: "/filtered-search",
+                element: <FilteredSearch/>,
+            },
+            {
+                path: "/filtered-filters",
+                element: <FilteredFilters/>,
             },
             {
                 path: "/property-register",

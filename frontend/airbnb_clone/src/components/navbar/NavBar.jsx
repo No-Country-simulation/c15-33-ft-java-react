@@ -57,15 +57,14 @@ export const NavBar = ({ hideSearch }) => {
                         </Button>                    
                         {isSearchOpen && <Search />}
                     </div>}
-                    <div className="flex flex-row gap-px md:gap-4">                       
-
-
-                        {!user && <div className="flex items-center gap-2">
+                    <div className="flex flex-row gap-px md:gap-4"> 
+                        {!user ? 
+                        <div className="flex items-center gap-2">
                             <Button variant="text" className="rounded-full hidden sm:inline" onClick={handleOpenSignUp}>Registrarse</Button>
                             <Button variant="outlined" className="rounded-full" onClick={handleOpenLogin}>Iniciar Sesión</Button>
-
-                        </div>}
-                        {user && <div className="flex items-center gap-2">
+                        </div> 
+                        :
+                        <div className="flex items-center gap-2">
                             <Typography>
                                 Bienvenido: {user ? user.firstname : ""}
                             </Typography>
@@ -75,9 +74,9 @@ export const NavBar = ({ hideSearch }) => {
                                 </MenuHandler>
                                 <MenuList>
                                     {isAdmin && <Link to="/admin-panel"><MenuItem>Panel Admin</MenuItem></Link>}
-                                    {isOwner && <Link to="/property-register"><MenuItem>Registar una Propiedad</MenuItem></Link>}
+                                    {isOwner && <Link to="/property-register"><MenuItem>Registrar una Propiedad</MenuItem></Link>}
                                     <Link to="/account-settings"><MenuItem>Cuenta</MenuItem></Link>
-                                    <MenuItem onClick={() => logoutUser()}>Cerrar Sesión</MenuItem>
+                                    <Link to="/"><MenuItem onClick={() => logoutUser()}>Cerrar Sesión</MenuItem></Link>
                                 </MenuList>
                             </Menu>
                         </div>}

@@ -7,10 +7,11 @@ import {
     faMagnifyingGlass
   } from "@fortawesome/free-solid-svg-icons";
 import { countries } from 'countries-list';
-import { getAllProperties } from '../../services/apiRequests';
+import { useNavigate } from 'react-router-dom';
 
 export const Search = () => {    
-    const queryParams = new URLSearchParams(location.search);    
+    const queryParams = new URLSearchParams(location.search);   
+    const navigate = useNavigate(); 
 
     const [destination, setDestination] = useState("");  
     const [openOptions, setOpenOptions] = useState(false);
@@ -19,7 +20,7 @@ export const Search = () => {
         children: parseInt(queryParams.get('children'), 10) || 0,
         room: parseInt(queryParams.get('rooms'), 10) || 1,
     });
-    const [emptyInput, setEmptyInput] = useState(false);
+    const [emptyInput, setEmptyInput] = useState(false);    
    
 
     const handleOption = (name, operation) => {
@@ -49,29 +50,19 @@ export const Search = () => {
       };
     }, []);
   
-    const handleSearch = async () => {
+    const handleSearch = () => {
         if (destination.trim() === '' ) {
             setEmptyInput(true);
             return;
-        }  
-       
-        try {
-            const properties = await getAllProperties();
-
-            const filteredProperties = properties.filter(property => {                
-                const matchesCountry = property.location.country === destination;               
-                const matchesRooms = property.bedroom >= options.room;
-                const totalGuests = options.adult + options.children;                
-                const enoughBeds = property.bed >= totalGuests;
-                
-                return matchesCountry && matchesRooms && enoughBeds;
-            });            
+        }         
+        const searchParams = new URLSearchParams();    
         
-            console.log(filteredProperties);
-        
-        } catch (error) {
-            console.error('Error al obtener propiedades:', error);
-        }
+        searchParams.set('destination', destination);       
+        searchParams.set('adults', options.adult);
+        searchParams.set('children', options.children);
+        searchParams.set('rooms', options.room);
+            
+        navigate(`/filtered-search?${searchParams.toString()}`);         
     };
     
     const countryNames = (Object.values(countries).map((country) => country.name)).sort();
@@ -168,8 +159,8 @@ export const Search = () => {
                         </div>
                     </div>
                     <div className="flex items-center gap-2.5">
-                        <Button className="bg-red-500 md:hidden w-10 pl-3.5" onClick={handleSearch}><FontAwesomeIcon icon={faMagnifyingGlass} /></Button>
-                        <Button className="bg-red-500 hidden md:inline w-20 p-2" onClick={handleSearch}>Search</Button>
+                    <Button className="bg-red-500 md:hidden w-10 pl-3.5" onClick={handleSearch}><FontAwesomeIcon icon={faMagnifyingGlass} /></Button>
+                    <Button className="bg-red-500 hidden md:inline w-20 p-2" onClick={handleSearch}>Search</Button>
                     </div>
                 </div>
                 {emptyInput ?
