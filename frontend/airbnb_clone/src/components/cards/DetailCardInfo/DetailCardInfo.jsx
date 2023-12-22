@@ -1,6 +1,6 @@
 import { DetailCardCategory } from "../";
 
-export const DetailCardInfo = ({
+export const DetailCardInfo = ({ 
   description,
   userName,
   bed,

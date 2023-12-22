@@ -2,7 +2,6 @@ import { Button, Checkbox, Dialog, DialogBody, DialogFooter, DialogHeader, Input
 import { useState } from "react";
 import { useEffect } from "react";
 import { CountriesSelect } from '../countries/CountryList'
-import { useAuth } from "../../context/authContext.jsx";
 import { submitProperty } from "../../services/apiRequests.jsx";
 import { Link } from "react-router-dom";
 
@@ -87,7 +86,6 @@ export const PropertyRegister = () => {
     const [openDialog, setOpenDialog] = useState(false);
     const handleOpenDialog = () => setOpenDialog(!openDialog);
 
-    const { user } = useAuth()
 
     const [propertyData, setPropertyData] = useState({
         title: null,
@@ -164,7 +162,6 @@ export const PropertyRegister = () => {
 
     const sendPropertyInfo = () => {
 
-        console.log("Data para el backend:", propertyData)
         submitProperty(propertyData)
         handleOpenDialog()
 
