@@ -1,15 +1,20 @@
 import { DetailCardCategory } from "../";
 
 export const DetailCardInfo = ({
-  label,
-  littleDescription,
-  userName,
   description,
+  userName,
   bed,
   bedroom,
   bathroom,
-  value
+  value,
+  category,
+  subCategory,
+  active
 }) => {
+
+  // category={category}
+  // subCategory={subCategory}
+  // active={active}
   return (
     <div className="col-span-4 flex flex-col gap-8">
       <div className="flex flex-col gap-2">
@@ -47,8 +52,9 @@ export const DetailCardInfo = ({
 
       <hr />
         <DetailCardCategory
-          label={label}
-          littleDescription={littleDescription} 
+          category={category}
+          subCategory={subCategory}
+          active={active}
         />
       <hr />
       <div className="text-lg font-light text-neutral-500">

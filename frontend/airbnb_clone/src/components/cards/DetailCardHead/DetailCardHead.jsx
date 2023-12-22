@@ -1,10 +1,10 @@
 import { Heading } from "../";
 
-export const DetailCardHead = ({image, description, country}) => {
+export const DetailCardHead = ({image, title, country}) => {
   return ( 
     <>
       <Heading
-        title={description}
+        title={title}
         subtitle={country}
       />
       <div className="

@@ -1,6 +1,7 @@
 
 
-export const DetailCardButton = () => {
+export const DetailCardButton = (id) => {
+  console.log(id);
     return ( 
         <button
           className="

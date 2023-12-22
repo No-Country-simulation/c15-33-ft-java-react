@@ -1,4 +1,4 @@
-export const HostCardItem = ({description, country, reservationDate, value, image}) => {
+export const HostCardItem = ({title, description, location, value, images}) => {
   return (
     <div
       className="col-span-1 cursor-pointer group"
@@ -14,7 +14,7 @@ export const HostCardItem = ({description, country, reservationDate, value, imag
           "
         >
           <img
-            src={image}
+            src={`http://149.50.133.215:80/api/img/${images[0]}`}
             alt="image 2"
             className="
               object-cover 
@@ -33,16 +33,20 @@ export const HostCardItem = ({description, country, reservationDate, value, imag
         </div>
 
         <div className="font-semibold xl:text-sm md:text-base sm:text-lg truncate">
+          { title}
+        </div>
+
+        {/* <div className="font-light text-gray-700 xl:text-sm md:text-base sm:text-lg truncate">
           {description}
-        </div>
+        </div> */}
 
         <div className="font-light text-gray-700 xl:text-sm md:text-base sm:text-lg truncate">
-          {country}
+          {location.country}
         </div>
 
-        <div className="font-light text-gray-700 xl:text-sm md:text-base sm:text-lg truncate">
+        {/* <div className="font-light text-gray-700 xl:text-sm md:text-base sm:text-lg truncate">
           {reservationDate}
-        </div>
+        </div> */}
         
         <div className="font-semibold xl:text-sm md:text-base sm:text-lg truncate">
           ${value} por noche

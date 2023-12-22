@@ -1,102 +1,47 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Spinner } from "@material-tailwind/react";
 import { Container, EmptyState, HostCardItem } from "..";
-
-const propertiesList = [
-  {
-    id: 1,
-    description: "Casa moderna en el centro de la ciudad",
-    image: "https://source.unsplash.com/random",
-    value: 5000,
-    country: "Estados Unidos",
-    categories: ["Residencial", "Centro urbano"],
-    subCategory: "Casa",
-    bathroom: 3,
-    bed: 4,
-    bedroom: 3,
-    services: ["Electricidad", "Agua", "Gas"],
-    reservationDate:"11-12 de dic",
-  },
-  {
-    id: 2,
-    description: "Apartamento con terraza panorámica",
-    image: "https://source.unsplash.com/random?q=hotel%20paris",
-    value: 2500,
-    country: "España",
-    categories: ["Residencial", "Vistas panorámicas"],
-    subCategory: "Apartamento",
-    bathroom: 2,
-    bed: 2,
-    bedroom: 1,
-    services: ["Internet", "Agua", "Seguridad"],
-    reservationDate: "20-22 de dic",
-  },
-  {
-    id: 3,
-    description: "Terreno amplio para desarrollo",
-    image: "https://source.unsplash.com/random?q=vuelo%20new%20york%20tokio",
-    value: 10000,
-    country: "Argentina",
-    categories: ["Terreno", "Desarrollo"],
-    subCategory: "Terreno",
-    bathroom: 0,
-    bed: 0,
-    bedroom: 0,
-    services: [],
-    reservationDate: "23 de dic",
-  },
-  {
-    id: 4,
-    description: "Casa colonial con jardín exuberante",
-    image: "https://source.unsplash.com/random?q=restaurante%20roma",
-    value: 7000,
-    country: "México",
-    categories: ["Residencial", "Jardín"],
-    subCategory: "Casa",
-    bathroom: 4,
-    bed: 5,
-    bedroom: 4,
-    services: ["Electricidad", "Agua", "Mantenimiento de jardín"],
-    reservationDate: "26 de dic",
-  },
-  {
-    id: 5,
-    description: "Apartamento moderno en zona comercial",
-    image: "https://source.unsplash.com/random?q=paseo%20helicóptero%20gran%20cañón",
-    value: 350,
-    country: "Italia",
-    categories: ["Residencial", "Zona comercial"],
-    subCategory: "Apartamento",
-    bathroom: 2,
-    bed: 3,
-    bedroom: 2,
-    services: ["Internet", "Agua", "Seguridad"],
-    reservationDate: "27 de dic",
-  },
-  {
-    id: 6,
-    description: "Casa de playa con acceso privado",
-    image: "https://source.unsplash.com/random?q=safari+africano",
-    value: 800,
-    country: "Brasil",
-    categories: ["Residencial", "Playa"],
-    subCategory: "Casa",
-    bathroom: 3,
-    bed: 4,
-    bedroom: 3,
-    services: ["Electricidad", "Agua", "Acceso privado a la playa"],
-    reservationDate: "29 de dic",
-  },
-];
+import { getAllProperties } from "../../../services/apiRequests";
 
 export const CardContainer = () => {
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  if (propertiesList.length === 0) {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getAllProperties();
+        
+        setProperties(data);
+
+        setLoading(false);
+      } catch (error) {
+        console.error('Error al obtener propiedades:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (properties.length === 0) {
     return (
-      <EmptyState
-        title={"Alojamientos"}
-        subtitle={"No hay ningún alojamiento publicado... ¡por ahora!"}
-        showReset={true}
-      />
+      <div className="grid items-center justify-center h-screen">
+        {
+          loading
+        ? 
+          (<Spinner className="h-12 w-12" />)
+        :
+          (
+            <EmptyState
+              title={"Alojamientos"}
+              subtitle={"No hay ningún alojamiento publicado... ¡por ahora!"}
+              showReset={true}
+            />
+          )
+      }
+      </div>
     );
   }
 
@@ -115,35 +60,48 @@ export const CardContainer = () => {
             gap-8
           "
         >
-          {propertiesList.map((propertie) => (
-            <Link
-              key={propertie.id}
-              to={`/property-detail/${propertie.id}`}
-              state={{
-                description: propertie.description,
-                country: propertie.country,
-                value: propertie.value,
-                image: propertie.image,
-
-                bedroom: propertie.bedroom,
-                bed: propertie.bed,
-                bathroom: propertie.bathroom,
-
-                // categories={propertie.categories}
-                // subCategory={propertie.subCategory}
-                // services={propertie.services}
-              }}
-            >
-              <HostCardItem
-                description={propertie.description}
-                country={propertie.country}
-                reservationDate={propertie.reservationDate}
-                value={propertie.value}
-                image={propertie.image}
-              />
-            </Link>
-          )
-          )}
+          {
+            loading
+              ? 
+                (
+                  <div className="grid items-center justify-center h-screen">
+                    <Spinner className="h-12 w-12" />
+                  </div>
+                )
+              : 
+                (
+                  properties.map((propertie) => (
+                    <Link
+                      key={propertie.id}
+                      to={`/property-detail/${propertie.id}`}
+                      state={{
+                        title: propertie.title,
+                        username: propertie.username,
+                        category: propertie.category,
+                        subCategory: propertie.subCategory,
+                        description: propertie.description,
+                        value: propertie.value,
+                        active: propertie.active,
+                        images: propertie.images,
+                        location: propertie.location,
+                        bathroom: propertie.bathroom,
+                        bed: propertie.bed,
+                        bedroom: propertie.bedroom,
+                      }}
+                    >
+                      <HostCardItem
+                        title={propertie.title}
+                        description={propertie.description}
+                        location={propertie.location}
+                        // reservationDate={propertie.reservationDate}
+                        value={propertie.value}
+                        images={propertie.images}
+                      />
+                    </Link>
+                  )
+                  )
+                )
+          }
         </div>
     </Container>
   )

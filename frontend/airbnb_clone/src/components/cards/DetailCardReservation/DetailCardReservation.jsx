@@ -1,6 +1,6 @@
 import { DetailCardButton } from "../";
 
-export const DetailCardReservation = ({totalPrice, value}) => {
+export const DetailCardReservation = ({totalPrice, value, id}) => {
   return ( 
     <div 
       className="
@@ -22,7 +22,7 @@ export const DetailCardReservation = ({totalPrice, value}) => {
       <hr />
 
       <div className="p-4">
-        <DetailCardButton />
+        <DetailCardButton id={id} />
       </div>
       <hr />
 
