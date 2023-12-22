@@ -64,7 +64,7 @@ public class UserServiceImp implements UserService {
     public void update(String id, String token, UserRequest request) throws Exception {
         User user = findById(id);
         if (user != null) {
-            if(!getByUsername(jwtService.getUsernameFromToken(jwtService.withoutBearer(token))).username().equals(user.getUsername())){
+            if(!jwtService.getUsernameFromToken(jwtService.withoutBearer(token)).equals(user.getUsername())&&!getByUsername(jwtService.getUsernameFromToken(token)).role().toString().equals("ADMIN")){
                 throw new Exception("User not authorized");
             }
             // Actualizar los campos del usuario con los datos proporcionados en el UserRequest
@@ -85,7 +85,7 @@ public class UserServiceImp implements UserService {
     public void delete(String id, String token) throws Exception {
         User user = findById(id);
         if (user != null) {
-            if(!getByUsername(jwtService.getUsernameFromToken(jwtService.withoutBearer(token))).username().equals(user.getUsername())&&!getByUsername(jwtService.getUsernameFromToken(token)).role().toString().equals("ADMIN")){
+            if(!jwtService.getUsernameFromToken(jwtService.withoutBearer(token)).equals(user.getUsername())&&!getByUsername(jwtService.getUsernameFromToken(token)).role().toString().equals("ADMIN")){
                 throw new Exception("User not authorized");
             }
             // Realizar aquí cualquier validación adicional necesaria antes de permitir la eliminación del usuario.
