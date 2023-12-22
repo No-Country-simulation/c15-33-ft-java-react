@@ -1,6 +1,6 @@
 import { Button } from "@material-tailwind/react"
 import { useAuth } from "../context/authContext";
-import { deleteProperty, getAllProperties, getPropertiesByUserId, getProperty } from "../services/apiRequests";
+import { deleteProperty, getAllProperties, getImageUrlById, getPropertiesByUserId, getProperty } from "../services/apiRequests";
 
 
 export const Test = () => {
@@ -55,14 +55,17 @@ export const Test = () => {
       const id = "1681b20b-813b-40ca-ad21-47b6c5583dee"
 
       const userId= "c536542a-66f7-4fb5-8e99-884c594e1bcf"
+      
+      const imgId = getImageUrlById("23a38435-96f0-4d3a-8b0f-4657d95abc9c")
 
     return (
         <>
-            {/* <Button onClick={() => deleteProperty(id)}>Delete property</Button> */}
-            {/* <Button onClick={getUsers}>Get Data</Button>
+            <Button onClick={() => deleteProperty(id)}>Delete property</Button> 
+            <Button onClick={getUsers}>Get Data</Button>
             <Button onClick={() => (getProperty(id))}>Get Property</Button>
             <Button onClick={getAllProperties}>Get Properties</Button>
-            <Button onClick={() => getPropertiesByUserId(userId)}>Get User Properties</Button> */}
+            <Button onClick={() => getPropertiesByUserId(userId)}>Get User Properties</Button>
+            <img src={imgId} alt="" />
 
         </>
     )

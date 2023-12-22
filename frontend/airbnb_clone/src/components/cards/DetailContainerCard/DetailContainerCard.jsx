@@ -9,6 +9,7 @@ export const DetailContainerCard = () => {
   let { state } = useLocation();
   const { title, username, category, description, subCategory, value, active, images, location, bedroom, bed, bathroom } = state;
 
+
   let totalPrice = value;
 
   return (

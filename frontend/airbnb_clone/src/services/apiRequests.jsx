@@ -110,7 +110,6 @@ export async function submitProperty(formData) {
 
 export function forceLogout () {
     logout()
-    alert('Sesión expirada, vuelve a logear')
 }
 
 export async function updateUserData (setUser, username) {
@@ -227,12 +226,10 @@ export async function getUser (username) {
 }
 
 export async function getAllProperties () {
-    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
     try {
         const response = await fetch(`${apiUrl}/api/property`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`
             }
         })
 
@@ -310,4 +307,29 @@ export async function deleteProperty (id) {
     } catch (error) {
         console.error('There was an error:', error);
     }
+}
+
+export async function getImageUrlById (id) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+
+    try {
+        const response = await fetch(`${apiUrl}/api/img/${id}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        if(response.ok){
+            const blob = await response.blob();
+            const imageUrl = URL.createObjectURL(blob);
+            console.log('URL de la imagen:', imageUrl);
+            return imageUrl;
+        } else {
+            console.error('error de respuesta');
+        }
+        
+        } catch (error) {
+            console.error('Error de red:', error);
+        }
 }
