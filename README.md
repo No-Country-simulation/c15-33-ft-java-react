@@ -3,6 +3,12 @@
 
 <br>
 
+<h2> 🎬 Video Promocional del Proyecto ▶ </h2>
+
+[![Alt text](https://img.youtube.com/vi/YtKXvKU3Vqo/0.jpg)](https://www.youtube.com/watch?v=YtKXvKU3Vqo)
+
+<br>
+
 <h2> 🏰 Clon de Airbnb API Restful 🚀 </h2>
 
 ✅ - Este proyecto es un clon de Airbnb desarrollado con el objetivo de brindar una plataforma robusta <br>
