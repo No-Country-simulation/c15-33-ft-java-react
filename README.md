@@ -31,10 +31,11 @@
 
 <br>
 
-<h2> 🎬 Video Promocional del Proyecto ▶ </h2>
+<h2> 🎬 Video Demostración ▶ </h2>
 
-[![mini](https://github.com/MatiasNicolasAcevedo/c15-33-ft-java-react/assets/109118183/d017298b-dc24-484d-8cfc-19d830ad7fd5)](https://youtu.be/30RxYVl8nh8)
-
+<a href="https://youtu.be/30RxYVl8nh8">
+  <img src="https://github.com/MatiasNicolasAcevedo/c15-33-ft-java-react/assets/109118183/d017298b-dc24-484d-8cfc-19d830ad7fd5" alt="mini" width="460" height="280" target="_blank" rel="noopener">
+</a>
 <br>
 
 <h2> 👨‍💻 Tecnologías Utilizadas 🔮 </h2>
