@@ -34,7 +34,7 @@
 <h2> 🎬 Video Demostración ▶ </h2>
 
 <a href="https://youtu.be/30RxYVl8nh8">
-  <img src="https://github.com/MatiasNicolasAcevedo/c15-33-ft-java-react/assets/109118183/d017298b-dc24-484d-8cfc-19d830ad7fd5" alt="mini" width="460" height="280" target="_blank" rel="noopener">
+  <img src="https://github.com/MatiasNicolasAcevedo/c15-33-ft-java-react/assets/109118183/38039881-034e-4d19-9db3-5ee24f25fe8f" alt="mini" width="460" height="280" target="_blank" rel="noopener">
 </a>
 <br>
 
