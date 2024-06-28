@@ -1,44 +1,45 @@
 
-<h1 align="center"> 🏡 Proyecto de c15-33-ft-java-react 🏖 </h1>
+<h1 align="center"> 🏡 Proyecto del equipo c15-33-ft-java-react | No Country 🌎 </h1>
+
+<br>
+
+<h2> 🏰 Clon de Airbnb 🚀 </h2>
+
+✅ Este proyecto es un clon de Airbnb desarrollado durante 5 semanas en el marco de la simulación laboral, con el objetivo de brindar una plataforma robusta <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; para la gestión de propiedades y reservas.
+
+✅ - El proyecto proporciona un sistema completo de autenticación y autorización de usuarios <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mediante la generación y validación de tokens JWT, asegurando que solo los usuarios autenticados y <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; autorizados puedan acceder a ciertos recursos de la aplicación. <br>
+
+<br>
+
+<h2> 🚩 Funcionalidades Principales ⚜ </h2>
+
+✅ Registro de Usuarios: Permite a los usuarios crear cuentas USER Y OWNER para acceder a la plataforma. <br>
+
+✅ Autenticación y Login: Proceso seguro de inicio de sesión para acceder a funcionalidades exclusivas. <br>
+
+✅ Búsqueda de Propiedades: Facilita la búsqueda de propiedades utilizando filtros y criterios específicos. <br>
+
+✅ Carga de Propiedades: Los usuarios registrados como dueños pueden cargar propiedades con detalles, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; servicios ofrecidos e imágenes para brindar una descripción detallada. <br>
+
+✅ Detalles de Servicios: Muestra información detallada sobre los servicios disponibles en cada propiedad. <br>
+
+✅ Reserva: Se permite realizar una reserva de la propiedad de interés. <br>
 
 <br>
 
 <h2> 🎬 Video Promocional del Proyecto ▶ </h2>
 
-[![Alt text](https://img.youtube.com/vi/YtKXvKU3Vqo/0.jpg)](https://www.youtube.com/watch?v=YtKXvKU3Vqo)
-
-<br>
-
-<h2> 🏰 Clon de Airbnb API Restful 🚀 </h2>
-
-✅ - Este proyecto es un clon de Airbnb desarrollado con el objetivo de brindar una plataforma robusta <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; para la gestión de propiedades y reservas. Utiliza tecnologías modernas como React, Tailwind en el frontend <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y Spring Boot en el backend con integración de Spring Security y una API de imágenes completa. <br>
-
-✅ - El proyecto proporciona un sistema completo de autenticación y autorización de usuarios <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mediante la generación y validación de tokens JWT, asegurando que solo los usuarios autenticados y <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; autorizados puedan acceder a ciertos recursos de la aplicación. <br>
-<br>
-
-<h2> 🚩 Funcionalidades Principales ⚜ </h2>
-
-✅ - Registro de Usuarios: Permite a los usuarios crear cuentas USER Y OWNER para acceder a la plataforma. <br>
-
-✅ - Autenticación y Login: Proceso seguro de inicio de sesión para acceder a funcionalidades exclusivas. <br>
-
-✅ - Búsqueda de Propiedades: Facilita la búsqueda de propiedades utilizando filtros y criterios específicos. <br>
-
-✅ - Carga de Propiedades: Los usuarios registrados como dueños pueden cargar propiedades con detalles, <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; servicios ofrecidos e imágenes para brindar una descripción detallada. <br>
-
-✅ - Detalles de Servicios: Muestra información detallada sobre los servicios disponibles en cada propiedad. <br>
+[![mini](https://github.com/MatiasNicolasAcevedo/c15-33-ft-java-react/assets/109118183/d017298b-dc24-484d-8cfc-19d830ad7fd5)](https://youtu.be/30RxYVl8nh8)
 
 <br>
 
 <h2> 👨‍💻 Tecnologías Utilizadas 🔮 </h2>
 
-✅ - Frontend: React y Tailwind para una interfaz de usuario moderna y amigable, <br> 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; desplegado en vercel. <br>
+✅ - Frontend: React y Tailwind para una interfaz de usuario moderna y amigable.
 
 ✅ - Backend: Spring Boot para la lógica del servidor y la gestión de datos, <br> 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; desplegado en un contenedor Docker. <br>
