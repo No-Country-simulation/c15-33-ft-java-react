@@ -1,33 +1,33 @@
 
-<h1 align="center"> 🏡 Proyecto del equipo c15-33-ft-java-react | No Country 🌎 </h1>
+<h1 align="center">🏡 Equipo c15-33-ft-java-react | No Country 🌎</h1>
 
 <br>
 
 <h2> 🏰 Clon de Airbnb 🚀 </h2>
 
-✅ Este proyecto es un clon de Airbnb desarrollado durante 5 semanas en el marco de la simulación laboral, con el objetivo de brindar una plataforma robusta <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; para la gestión de propiedades y reservas.
+🔹 Este proyecto es un clon de Airbnb desarrollado durante 5 semanas en el marco de la simulación laboral,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;con el objetivo de brindar una plataforma robusta para la gestión de propiedades y reservas.
 
-✅ - El proyecto proporciona un sistema completo de autenticación y autorización de usuarios <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mediante la generación y validación de tokens JWT, asegurando que solo los usuarios autenticados y <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; autorizados puedan acceder a ciertos recursos de la aplicación. <br>
+🔹 El proyecto proporciona un sistema completo de autenticación y autorización de usuarios <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mediante la generación y validación de tokens JWT, asegurando que solo los usuarios autenticados y <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;autorizados puedan acceder a ciertos recursos de la aplicación. <br>
 
 <br>
 
 <h2> 🚩 Funcionalidades Principales ⚜ </h2>
 
-✅ Registro de Usuarios: Permite a los usuarios crear cuentas USER Y OWNER para acceder a la plataforma. <br>
+🔹 Registro de Usuarios: Permite a los usuarios crear cuentas USER Y OWNER para acceder a la plataforma. <br>
 
-✅ Autenticación y Login: Proceso seguro de inicio de sesión para acceder a funcionalidades exclusivas. <br>
+🔹 Autenticación y Login: Proceso seguro de inicio de sesión para acceder a funcionalidades exclusivas. <br>
 
-✅ Búsqueda de Propiedades: Facilita la búsqueda de propiedades utilizando filtros y criterios específicos. <br>
+🔹 Búsqueda de Propiedades: Facilita la búsqueda de propiedades utilizando filtros y criterios específicos. <br>
 
-✅ Carga de Propiedades: Los usuarios registrados como dueños pueden cargar propiedades con detalles, <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; servicios ofrecidos e imágenes para brindar una descripción detallada. <br>
+🔹 Detalles de Servicios: Muestra información detallada sobre los servicios disponibles en cada propiedad. <br>
 
-✅ Detalles de Servicios: Muestra información detallada sobre los servicios disponibles en cada propiedad. <br>
+🔹 Reserva: Se permite realizar una reserva de la propiedad de interés. <br>
 
-✅ Reserva: Se permite realizar una reserva de la propiedad de interés. <br>
+🔹 Carga de Propiedades: Los usuarios registrados como dueños pueden cargar propiedades con detalles, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servicios ofrecidos e imágenes para brindar una descripción detallada.
 
 <br>
 
