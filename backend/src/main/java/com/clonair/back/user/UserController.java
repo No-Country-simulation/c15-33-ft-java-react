@@ -11,7 +11,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("v1/api/user")
 public class UserController {
 
     private final UserService userService;
@@ -31,6 +31,7 @@ public class UserController {
         return ResponseEntity.ok(userService.getAll(token));
     }
 
+    /*
     @PutMapping("/{id}")
     public ResponseEntity<String> updateUser(
             @PathVariable String id,
@@ -43,6 +44,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+    */
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable String id, @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) {
