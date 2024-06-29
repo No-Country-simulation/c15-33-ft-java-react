@@ -99,7 +99,7 @@
 
 <h2> 📊 Diagrama de Entidad Relacional 📈 </h2>
 
-<img src="https://github.com/MatiasNicolasAcevedo/c15-33-ft-java-react/assets/109118183/fcf1236a-bc8b-42c3-9ddf-b5189bab03d1" alt="mini" width="440" height="353">
+<img src="https://github.com/MatiasNicolasAcevedo/c15-33-ft-java-react/assets/109118183/fcf1236a-bc8b-42c3-9ddf-b5189bab03d1" alt="mini" width="528" height="424">
 
 <br>
 <br>
