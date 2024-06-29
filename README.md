@@ -104,6 +104,13 @@
 <br>
 <br>
 
+<h2> 📋 Swagger | Endpoints 📑 </h2>
+
+<img src="https://github.com/MatiasNicolasAcevedo/c15-33-ft-java-react/assets/109118183/672b7335-90c5-4f6d-bfeb-e72175e23f88" alt="mini" width="680" height="830">
+
+<br>
+<br>
+
 <h2> 🎆 Agradecimientos 🎇 </h2>
 
 <a href="https://www.nocountry.tech/" target="_blank" rel="noopener">
