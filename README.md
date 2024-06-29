@@ -5,6 +5,11 @@
 
 <h2> 🏰 Clon de Airbnb 🚀 </h2>
 
+ <img src="https://github.com/MatiasNicolasAcevedo/c15-33-ft-java-react/assets/109118183/4fe0900f-c101-48cb-b7bd-3a4f9ced4aa2" alt="mini" width="686" height="400">
+
+<br>
+<br>
+
 🔹 Este proyecto es un clon de Airbnb desarrollado durante 5 semanas en el marco de la simulación laboral,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;con el objetivo de brindar una plataforma robusta para la gestión de propiedades y reservas.
 
@@ -77,10 +82,26 @@
 
 <br>
 
+<h2> 🖼 Capturas de pantalla 📷 </h2>
+
+<img src="https://github.com/MatiasNicolasAcevedo/c15-33-ft-java-react/assets/109118183/b8602f63-7b27-4697-ab6d-c07477f5e91d" alt="mini" width="675" height="350">
+
+<br>
+
+<img src="https://github.com/MatiasNicolasAcevedo/c15-33-ft-java-react/assets/109118183/c7588f6e-0940-49a9-b3e3-6aba0d2144e9" alt="mini" width="675" height="350">
+
+<br>
+
+<img src="https://github.com/MatiasNicolasAcevedo/c15-33-ft-java-react/assets/109118183/f1cd07c0-1c35-4cc1-9829-545179a942f3" alt="mini" width="675" height="330">
+
+<br>
+<br>
+
 <h2> 📊 Diagrama de Entidad Relacional 📈 </h2>
 
 <img src="https://github.com/MatiasNicolasAcevedo/c15-33-ft-java-react/assets/109118183/fcf1236a-bc8b-42c3-9ddf-b5189bab03d1" alt="mini" width="660" height="529">
 
+<br>
 <br>
 
 <h2> 🎆 Agradecimientos 🎇 </h2>
