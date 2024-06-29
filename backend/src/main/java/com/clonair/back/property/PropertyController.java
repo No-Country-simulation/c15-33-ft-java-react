@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/property")
+@RequestMapping("v1/api/property")
 public class PropertyController {
 
     private final PropertyService propertyService;

@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.OrRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 /**
  * Esta clase define las reglas de seguridad, filtros, y la gestión de sesiones.
@@ -32,16 +35,23 @@ public class SecurityConfig {
                 .csrf(csrf -> // Deshabilitar CSRF(Cross-Site Request Forgery) cuando se trabaja con una API REST.
                         csrf  // Ya que las aplicaciones RESTful no mantienen el estado de sesión por diseño, y CSRF se enfoca en la protección de sesiones.
                                 .disable())
-                .authorizeHttpRequests(authRequest ->
-                        authRequest
-                                .requestMatchers("/auth/**").permitAll() // Permite el acceso a todas las solicitudes bajo el patrón /auth/** sin autenticación. (/auth/login y /auth/register).
-                                .anyRequest().authenticated()) // Requiere autenticación para cualquier otra solicitud no cubierta por el patrón mencionado anteriormente.
+                                .authorizeHttpRequests(auth -> auth.requestMatchers(publicEndpoints()).permitAll().anyRequest().authenticated())
                 .sessionManagement(sessionManager->
                         sessionManager
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // La aplicación no mantendrá estados de sesión en el servidor, es común en servicios RESTful. Y cada solicitud debe incluir toda la información necesaria para su procesamiento.
                 .authenticationProvider(authProvider) // Establece el proveedor de autenticación personalizado definido en ApplicationConfig.
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Inserta el JwtAuthenticationFilter antes del UsernamePasswordAuthenticationFilter. Esto asegura que el filtro personalizado se ejecute antes de que Spring Security procese la autenticación basada en el nombre de usuario y contraseña.
                 .build();
+    }
+
+    private RequestMatcher publicEndpoints() {
+        return new OrRequestMatcher(
+                // Esto cambia según los endpoints que usemos nosotros
+                new AntPathRequestMatcher("/v1/api/auth/*"),
+                new AntPathRequestMatcher("/swagger-ui/**"),
+                new AntPathRequestMatcher("/v3/api-docs/**"),
+                new AntPathRequestMatcher("/v1/api/render/*")
+        );
     }
 
 }
