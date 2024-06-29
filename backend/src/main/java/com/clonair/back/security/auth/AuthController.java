@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Controlador que gestiona las solicitudes HTTP relacionadas con la autenticación y el registro de usuarios.
  * */
 @RestController // Indica que esta clase es un controlador REST y que las respuestas de los métodos se serializarán automáticamente a JSON.
-@RequestMapping("/auth") // Establece la raíz de la URL para todas las solicitudes manejadas por este controlador.
+@RequestMapping("v1/api/auth") // Establece la raíz de la URL para todas las solicitudes manejadas por este controlador.
 @RequiredArgsConstructor // Genera un constructor que incluye todos los campos marcados como final.
 public class AuthController {
 
@@ -25,7 +25,7 @@ public class AuthController {
      * y llama al servicio authService.login(request).
      * Retorna una respuesta HTTP con el token de autenticación generado por el servicio.
      * */
-    @PostMapping(value = "login")
+    @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request){
         return ResponseEntity.ok(authService.login(request));
     }
@@ -36,7 +36,7 @@ public class AuthController {
      * y llama al servicio authService.register(request).
      * Retorna una respuesta HTTP con el token de autenticación generado por el servicio.
      * */
-    @PostMapping(value = "register")
+    @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request){
         return ResponseEntity.ok(authService.register(request));
     }
